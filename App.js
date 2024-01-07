@@ -1,26 +1,17 @@
 import { StatusBar } from "expo-status-bar";
-import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback, useState } from "react";
-import { SvgComponent } from "./assets/svgs";
-import { COLORS, SIZES } from "./constants/theme";
-import {
-  Input,
-  Icon,
-  Stack,
-  Pressable,
-  Center,
-  NativeBaseProvider,
-  FormControl,
-  Button,
-} from "native-base";
-import { MaterialIcons } from "@expo/vector-icons";
+
+import Login from "./components/Login";
+import { NativeBaseProvider } from "native-base";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Profile from "./components/Profile";
 SplashScreen.preventAutoHideAsync();
 setTimeout(SplashScreen.hideAsync, 5000);
 
 export default function App() {
-  const [show, setShow] = useState(false);
   const [fontsLoaded] = useFonts({
     "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
     "Poppins-Medium": require("./assets/fonts/Poppins-Medium.ttf"),
@@ -38,92 +29,21 @@ export default function App() {
     return null;
   }
 
+  const Stack = createNativeStackNavigator();
+
   return (
     <NativeBaseProvider>
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.container}>
-          <SvgComponent />
-
-          <Text style={styles.welcomeText}>Welcome back, 👋 </Text>
-          <Text style={styles.subText}>It's good to see you again. </Text>
-          <Stack space={4} w="100%" alignItems="center">
-            <FormControl>
-              <FormControl.Label>Email</FormControl.Label>
-              <Input
-                InputLeftElement={
-                  <Icon
-                    as={<MaterialIcons name="mail" />}
-                    size={5}
-                    ml="2"
-                    color="muted.400"
-                  />
-                }
-                placeholder="username@company.com"
-                style={{
-                  fontFamily: "Poppins-Regular",
-                }}
-              />
-            </FormControl>
-            <Input
-              type={show ? "text" : "password"}
-              InputLeftElement={
-                <Icon
-                  as={<MaterialIcons name="lock" />}
-                  size={5}
-                  ml="2"
-                  color="muted.400"
-                />
-              }
-              style={{ fontFamily: "Poppins-Regular" }}
-              InputRightElement={
-                <Pressable onPress={() => setShow(!show)}>
-                  <Icon
-                    as={
-                      <MaterialIcons
-                        name={show ? "visibility" : "visibility-off"}
-                      />
-                    }
-                    size={5}
-                    mr="2"
-                    color="muted.400"
-                  />
-                </Pressable>
-              }
-              placeholder="Password"
-            />
-          </Stack>
-          <Button
-            size="sm"
-            colorScheme="secondary"
-            width={"100%"}
-            style={{ backgroundColor: COLORS.primary }}
-          >
-            LOGIN
-          </Button>
-          {/* <StatusBar style="auto" /> */}
-        </View>
-      </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={Login}
+            options={{ title: "Welcome" }}
+          />
+          <Stack.Screen name="Profile" component={Profile} />
+        </Stack.Navigator>
+        {/* <Login /> */}
+      </NavigationContainer>
     </NativeBaseProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: SIZES.medium,
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  welcomeText: {
-    fontFamily: "Poppins-Medium",
-    fontSize: 24,
-    color: COLORS.textPrimary,
-    marginTop: 16,
-  },
-  subText: {
-    fontFamily: "Poppins-Regular",
-    fontSize: 12,
-    color: COLORS.textGray,
-  },
-});
