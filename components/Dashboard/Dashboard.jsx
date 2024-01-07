@@ -24,6 +24,7 @@ import {
   Logout,
   Settings,
 } from "../../assets/svgs";
+import Navbar from "../common/header/navbar/Navbar";
 
 const Dashboard = () => {
   const { width } = Dimensions.get("window");
@@ -80,68 +81,72 @@ const Dashboard = () => {
       icon: <Logout />,
     },
   ];
+  const date = new Date();
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
-      <View style={styles.container}>
-        <View style={styles.upperDash}>
-          <View style={styles.today}>
-            <Icon
-              as={<MaterialIcons name="today" />}
-              size={5}
-              ml="2"
-              color="muted.400"
-            />
-            <Text ml={2} style={styles.date}>
-              2023-12-12,Tuesday
-            </Text>
-          </View>
-          <View style={styles.statsContainer}>
-            <View style={styles.stat}>
-              <Text style={styles.statNum} fontSize={24} color={"#FF380D"}>
-                3
-              </Text>
-              <Text fontSize={14} color={COLORS.textPrimary}>
-                Leave
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={styles.upperDash}>
+            <View style={styles.today}>
+              <Icon
+                as={<MaterialIcons name="today" />}
+                size={5}
+                ml="2"
+                color="muted.400"
+              />
+              <Text ml={2} style={styles.date}>
+                {date.toDateString()}
               </Text>
             </View>
-            <View style={styles.stat}>
-              <Text style={styles.statNum} fontSize={24} color={"#FF9900"}>
-                3
-              </Text>
-              <Text fontSize={14} color={COLORS.textPrimary}>
-                Late
-              </Text>
-            </View>
-          </View>
-        </View>
-
-        <View style={styles.lowerDash}>
-          <View
-            style={{
-              width: "100%",
-              flexDirection: "row",
-              flexWrap: "wrap",
-              rowGap: 24,
-            }}
-          >
-            {items.map((item) => (
-              <View
-                style={{
-                  width: 100 / 3 + "%",
-                  //   backgroundColor: item?.backgroundColor,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                key={item.id}
-              >
-                <View>{item.icon}</View>
-                <Text>{item.title}</Text>
+            <View style={styles.statsContainer}>
+              <View style={styles.stat}>
+                <Text style={styles.statNum} fontSize={24} color={"#FF380D"}>
+                  3
+                </Text>
+                <Text fontSize={14} color={COLORS.textPrimary}>
+                  Leave
+                </Text>
               </View>
-            ))}
+              <View style={styles.stat}>
+                <Text style={styles.statNum} fontSize={24} color={"#FF9900"}>
+                  3
+                </Text>
+                <Text fontSize={14} color={COLORS.textPrimary}>
+                  Late
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.lowerDash}>
+            <View
+              style={{
+                width: "100%",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                rowGap: 24,
+              }}
+            >
+              {items.map((item) => (
+                <View
+                  style={{
+                    width: 100 / 3 + "%",
+                    //   backgroundColor: item?.backgroundColor,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  key={item.id}
+                >
+                  <View>{item.icon}</View>
+                  <Text>{item.title}</Text>
+                </View>
+              ))}
+            </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
+      <Navbar />
     </SafeAreaView>
   );
 };
