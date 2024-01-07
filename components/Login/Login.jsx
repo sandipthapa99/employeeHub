@@ -91,7 +91,7 @@ const Login = ({ navigation }) => {
             colorScheme="secondary"
             width={"80%"}
             style={{ backgroundColor: COLORS.primary }}
-            onPress={() => navigation.navigate("DashBoard")}
+            onPress={() => navigation.navigate("Dashboard")}
           >
             LOGIN
           </Button>
@@ -100,7 +100,8 @@ const Login = ({ navigation }) => {
             colorScheme="secondary"
             width={"15%"}
             style={{ backgroundColor: COLORS.primary }}
-            onPress={() => navigation.navigate("DashBoard")}
+            onPress={() => navigation.navigate("Dashboard")}
+            // onPress={() => navigation.navigate("Dashboard", { name: "Jane" })}
           >
             <Fingerprint />
           </Button>
