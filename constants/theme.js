@@ -11,6 +11,7 @@ const COLORS = {
 
   white: "#F3F4F8",
   lightWhite: "#FAFAFC",
+  link: "#178DDD",
 };
 
 const SIZES = {
