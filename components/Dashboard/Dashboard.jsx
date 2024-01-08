@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dimensions,
   Image,
@@ -13,7 +13,7 @@ import ScreenHeaderBtn from "../common/header/ScreenHeaderBtn";
 
 import styles from "./dashboard.style";
 import { Box, FlatList, Icon, Text } from "native-base";
-import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import {
   Attendance,
   Birthday,
@@ -26,6 +26,7 @@ import {
   Settings,
 } from "../../assets/svgs";
 import Navbar from "../common/header/navbar/Navbar";
+import { Dropdown, SelectCountry } from "react-native-element-dropdown";
 
 const Dashboard = ({ navigation }) => {
   const { width } = Dimensions.get("window");
@@ -78,6 +79,11 @@ const Dashboard = ({ navigation }) => {
     },
   ];
   const date = new Date();
+  const data = [
+    { label: "KFC", value: "KFC" },
+    // { label: "PizzaHut", value: "PizzaHut" },
+  ];
+  const [value, setValue] = useState(data[0].value);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -91,7 +97,24 @@ const Dashboard = ({ navigation }) => {
               <ScreenHeaderBtn iconUrl={images.user} dimension={"100%"} />
               <Text style={styles.username}>John Doe</Text>
             </TouchableOpacity>
-            <Text style={styles.headerRight}>KFC</Text>
+            {/* <Text style={styles.headerRight}>KFC</Text> */}
+            <Dropdown
+              style={styles.dropdown}
+              placeholderStyle={styles.placeholderStyle}
+              selectedTextStyle={styles.selectedTextStyle}
+              itemContainerStyle={styles.itemContainerStyle}
+              itemTextStyle={styles.itemTextStyle}
+              data={data}
+              maxHeight={300}
+              labelField="label"
+              valueField="value"
+              placeholder="Select Organization"
+              value={value}
+              onChange={(item) => {
+                setValue(item.value);
+              }}
+              // renderLeftIcon={() => <Text>{value}</Text>}
+            />
           </View>
           <View style={styles.upperDash}>
             <View style={styles.today}>

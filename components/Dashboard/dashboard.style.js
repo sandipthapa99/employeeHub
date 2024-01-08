@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     fontSize: SIZES.medium,
     fontFamily: FONT.medium,
     color: COLORS.gray,
-    paddingRight: 12,
   },
   username: {
     fontSize: 16,
@@ -68,6 +67,35 @@ const styles = StyleSheet.create({
     marginTop: 30,
     padding: 24,
   },
+
+  dropdown: {
+    height: 50,
+    width: 70,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+    fontFamily: FONT.regular,
+    color: COLORS.textPrimary,
+  },
+  itemContainerStyle: {},
+  itemTextStyle: {
+    fontSize: 14,
+    fontFamily: FONT.regular,
+  },
+  // iconStyle: {
+  //   width: 20,
+  //   height: 20,
+  // },
+  // inputSearchStyle: {
+  //   height: 40,
+  //   fontSize: 16,
+  // },
 });
 
 export default styles;

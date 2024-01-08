@@ -1,10 +1,15 @@
 import { Text } from "native-base";
 import React from "react";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import Navbar from "../common/header/navbar/Navbar";
 
 const Payslip = ({ navigation }) => {
-  return <Navbar navigation={navigation} />;
+  return (
+    <>
+      <ScrollView></ScrollView>
+      <Navbar navigation={navigation} page={"Payslip"} />
+    </>
+  );
 };
 
 export default Payslip;
