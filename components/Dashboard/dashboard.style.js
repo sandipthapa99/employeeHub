@@ -3,14 +3,15 @@ import { COLORS, FONT, SIZES } from "../../constants";
 
 const styles = StyleSheet.create({
   container: {
-    padding: SIZES.xLarge,
+    paddingLeft: SIZES.xLarge,
+    paddingRight: SIZES.xLarge,
+    paddingTop: 72,
   },
   header: {
-    marginTop: 32,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingLeft: 12,
+    marginBottom: 18,
   },
   headerLeft: {
     fontSize: SIZES.large,
@@ -20,7 +21,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   headerRight: {
-    marginTop: 32,
     fontSize: SIZES.medium,
     fontFamily: FONT.medium,
     color: COLORS.gray,

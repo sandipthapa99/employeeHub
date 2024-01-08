@@ -36,25 +36,25 @@ const Navbar = ({ navigation, page }) => {
     },
     {
       id: 3,
-      title: "Attendance Report",
+      title: "Attendance",
       icon: (
         <AttendanceReport
-          stroke={page === "Attendance Report" ? COLORS.textPrimary : "#fff"}
+          stroke={page === "Attendance" ? COLORS.textPrimary : "#fff"}
         />
       ),
     },
     {
       id: 4,
-      title: "Profile",
+      title: "Leave",
       icon: (
-        <LeaveSmall stroke={page === "Profile" ? COLORS.textPrimary : "#fff"} />
+        <Notification stroke={page === "Leave" ? COLORS.textPrimary : "#fff"} />
       ),
     },
     {
       id: 5,
       title: "Notifications",
       icon: (
-        <Notification
+        <LeaveSmall
           stroke={page === "Notifications" ? COLORS.textPrimary : "#fff"}
         />
       ),

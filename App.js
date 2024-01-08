@@ -12,12 +12,23 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import { COLORS, icons, images } from "./constants";
 import ScreenHeaderBtn from "./components/common/header/ScreenHeaderBtn";
 import styles from "./components/Dashboard/dashboard.style";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import Payslip from "./components/Payslip/Payslip";
+import Attendance from "./components/Attendance/Attendance";
+import LateEarly from "./components/LateEarly/LateEarly";
+import Birthday from "./components/Birthday/Birthday";
+import Leave from "./components/Leave/Leave";
+import Employees from "./components/Employees/Employees";
+import Settings from "./components/Settings/Settings";
+import Reimbursement from "./components/Reimbursement/Reimbursement";
+import Notification from "./components/Notification/Notification";
+import { useRouter } from "expo-router";
 SplashScreen.preventAutoHideAsync();
 setTimeout(SplashScreen.hideAsync, 3000);
 
 export default function App() {
+  const router = useRouter();
+
   const [fontsLoaded] = useFonts({
     "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
     "Poppins-Medium": require("./assets/fonts/Poppins-Medium.ttf"),
@@ -55,35 +66,25 @@ export default function App() {
           <Stack.Screen
             name="Dashboard"
             options={{
+              headerShown: false,
               headerStyle: {
                 backgroundColor: COLORS.lightWhite,
               },
               headerShadowVisible: false,
-              headerLeft: () => (
-                <View style={styles.header}>
-                  <View style={styles.headerLeft}>
-                    <ScreenHeaderBtn iconUrl={images.user} dimension={"100%"} />
-                    <Text style={styles.username}>John Doe</Text>
-                  </View>
-                </View>
-              ),
-              headerRight: () => (
-                <View>
-                  <Text style={styles.headerRight}>KFC</Text>
-                </View>
-              ),
+              headerLeft: () => <View></View>,
               headerTitle: "",
             }}
             component={Dashboard}
           />
-          <Stack.Screen name="Attendance" component={Payslip} />
-          <Stack.Screen name="LateEarly" component={Payslip} />
-          <Stack.Screen name="Birthday" component={Payslip} />
+          <Stack.Screen name="Attendance" component={Attendance} />
+          <Stack.Screen name="Late/Early" component={LateEarly} />
+          <Stack.Screen name="Birthday" component={Birthday} />
           <Stack.Screen name="Payslip" component={Payslip} />
-          <Stack.Screen name="Leave" component={Payslip} />
-          <Stack.Screen name="Employees" component={Payslip} />
-          <Stack.Screen name="Settings" component={Payslip} />
-          <Stack.Screen name="Reimbursement" component={Payslip} />
+          <Stack.Screen name="Leave" component={Leave} />
+          <Stack.Screen name="Employees" component={Employees} />
+          <Stack.Screen name="Settings" component={Settings} />
+          <Stack.Screen name="Reimbursement" component={Reimbursement} />
+          <Stack.Screen name="Notifications" component={Notification} />
           <Stack.Screen name="Profile" component={Profile} />
         </Stack.Navigator>
         {/* <Login /> */}

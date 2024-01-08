@@ -4,6 +4,7 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { COLORS, icons, images } from "../../constants";
@@ -75,11 +76,6 @@ const Dashboard = ({ navigation }) => {
       title: "Reimbursement",
       icon: <Reimbursment />,
     },
-    {
-      id: 9,
-      title: "Logout",
-      icon: <Logout />,
-    },
   ];
   const date = new Date();
 
@@ -87,6 +83,16 @@ const Dashboard = ({ navigation }) => {
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <ScrollView>
         <View style={styles.container}>
+          <View style={styles.header}>
+            <TouchableOpacity
+              style={styles.headerLeft}
+              onPress={() => navigation.navigate("Profile")}
+            >
+              <ScreenHeaderBtn iconUrl={images.user} dimension={"100%"} />
+              <Text style={styles.username}>John Doe</Text>
+            </TouchableOpacity>
+            <Text style={styles.headerRight}>KFC</Text>
+          </View>
           <View style={styles.upperDash}>
             <View style={styles.today}>
               <Icon
@@ -129,19 +135,37 @@ const Dashboard = ({ navigation }) => {
               }}
             >
               {items.map((item) => (
-                <View
+                <TouchableOpacity
                   style={{
                     width: 100 / 3 + "%",
                     //   backgroundColor: item?.backgroundColor,
                     alignItems: "center",
                     justifyContent: "center",
                   }}
+                  onPress={() => {
+                    navigation.navigate(item.title);
+                  }}
                   key={item.id}
                 >
                   <View>{item.icon}</View>
-                  <Text>{item.title}</Text>
-                </View>
+                  <Text mt={2}>{item.title}</Text>
+                </TouchableOpacity>
               ))}
+              <TouchableOpacity
+                style={{
+                  width: 100 / 3 + "%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                onPress={() => {
+                  navigation.navigate("Home");
+                }}
+              >
+                <View>
+                  <Logout />
+                </View>
+                <Text mt={2}>Logout</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
