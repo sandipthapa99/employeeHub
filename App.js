@@ -76,8 +76,15 @@ export default function App() {
             }}
             component={Dashboard}
           />
-          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="Attendance" component={Payslip} />
+          <Stack.Screen name="LateEarly" component={Payslip} />
+          <Stack.Screen name="Birthday" component={Payslip} />
           <Stack.Screen name="Payslip" component={Payslip} />
+          <Stack.Screen name="Leave" component={Payslip} />
+          <Stack.Screen name="Employees" component={Payslip} />
+          <Stack.Screen name="Settings" component={Payslip} />
+          <Stack.Screen name="Reimbursement" component={Payslip} />
+          <Stack.Screen name="Profile" component={Profile} />
         </Stack.Navigator>
         {/* <Login /> */}
       </NavigationContainer>
