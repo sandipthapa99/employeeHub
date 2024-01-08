@@ -13,6 +13,7 @@ import { COLORS, icons, images } from "./constants";
 import ScreenHeaderBtn from "./components/common/header/ScreenHeaderBtn";
 import styles from "./components/Dashboard/dashboard.style";
 import { Text, View } from "react-native";
+import Payslip from "./components/Payslip/Payslip";
 SplashScreen.preventAutoHideAsync();
 setTimeout(SplashScreen.hideAsync, 3000);
 
@@ -51,7 +52,6 @@ export default function App() {
               headerShadowVisible: false,
             }}
           />
-          <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen
             name="Dashboard"
             options={{
@@ -76,6 +76,8 @@ export default function App() {
             }}
             component={Dashboard}
           />
+          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="Payslip" component={Payslip} />
         </Stack.Navigator>
         {/* <Login /> */}
       </NavigationContainer>

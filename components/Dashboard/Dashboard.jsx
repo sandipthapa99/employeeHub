@@ -146,7 +146,7 @@ const Dashboard = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
-      <Navbar navigation={navigation} />
+      <Navbar navigation={navigation} page="Dashboard" />
     </SafeAreaView>
   );
 };

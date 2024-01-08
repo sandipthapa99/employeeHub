@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { COLORS } from "../../../../constants";
 import {
@@ -12,17 +12,17 @@ import {
 
 import styles from "./navbar.style";
 import { useRouter } from "expo-router";
+import { useRoute } from "@react-navigation/native";
 
-const Navbar = ({ navigation }) => {
-  const router = useRouter();
-  const [activeTab, setActiveTab] = useState("Home");
+const Navbar = ({ navigation, page }) => {
+  const route = useRoute();
 
   const items = [
     {
       id: 1,
-      title: "Home",
+      title: "Dashboard",
       icon: (
-        <Home stroke={activeTab === "Home" ? COLORS.textPrimary : "#fff"} />
+        <Home stroke={page === "Dashboard" ? COLORS.textPrimary : "#fff"} />
       ),
     },
     {
@@ -30,7 +30,7 @@ const Navbar = ({ navigation }) => {
       title: "Payslip",
       icon: (
         <PayslipSmall
-          stroke={activeTab === "Payslip" ? COLORS.textPrimary : "#fff"}
+          stroke={page === "Payslip" ? COLORS.textPrimary : "#fff"}
         />
       ),
     },
@@ -39,19 +39,15 @@ const Navbar = ({ navigation }) => {
       title: "Attendance Report",
       icon: (
         <AttendanceReport
-          stroke={
-            activeTab === "Attendance Report" ? COLORS.textPrimary : "#fff"
-          }
+          stroke={page === "Attendance Report" ? COLORS.textPrimary : "#fff"}
         />
       ),
     },
     {
       id: 4,
-      title: "Leave",
+      title: "Profile",
       icon: (
-        <LeaveSmall
-          stroke={activeTab === "Leave" ? COLORS.textPrimary : "#fff"}
-        />
+        <LeaveSmall stroke={page === "Profile" ? COLORS.textPrimary : "#fff"} />
       ),
     },
     {
@@ -59,7 +55,7 @@ const Navbar = ({ navigation }) => {
       title: "Notifications",
       icon: (
         <Notification
-          stroke={activeTab === "Notifications" ? COLORS.textPrimary : "#fff"}
+          stroke={page === "Notifications" ? COLORS.textPrimary : "#fff"}
         />
       ),
     },
@@ -69,10 +65,9 @@ const Navbar = ({ navigation }) => {
       {items.map((item) => (
         <View style={styles.grid} key={item.id}>
           <TouchableOpacity
-            style={styles.iconContainer(activeTab, item.title)}
+            style={styles.iconContainer(page, item.title)}
             onPress={() => {
-              setActiveTab(item.title);
-              navigation.navigate("Profile");
+              navigation.navigate(item.title);
             }}
           >
             <View>{item.icon}</View>

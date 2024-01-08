@@ -3,12 +3,8 @@ import React from "react";
 import { View } from "react-native";
 import Navbar from "../common/header/navbar/Navbar";
 
-const Profile = ({ navigation }) => {
-  return (
-    <View>
-      <Navbar navigation={navigation} page="Profile" />
-    </View>
-  );
+const Payslip = ({ navigation }) => {
+  return <Navbar navigation={navigation} />;
 };
 
-export default Profile;
+export default Payslip;
