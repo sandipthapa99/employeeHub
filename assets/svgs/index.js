@@ -206,3 +206,93 @@ export const Settings = (props) => (
     />
   </Svg>
 );
+
+export const AttendanceReport = (props) => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={22}
+    height={22}
+    fill="none"
+    {...props}
+  >
+    <Path
+      stroke="#fff"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M7.112 11H11V5.444M1 11a10 10 0 1 0 20 0 10 10 0 0 0-20 0Z"
+    />
+  </Svg>
+);
+
+export const Home = (props) => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={22}
+    height={22}
+    fill="none"
+    {...props}
+  >
+    <Path
+      stroke="#fff"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M7.667 21v-6.667a2.222 2.222 0 0 1 2.222-2.222h2.222a2.222 2.222 0 0 1 2.222 2.222V21M3.223 11H1L11 1l10 10h-2.222v7.778A2.222 2.222 0 0 1 16.556 21H5.444a2.222 2.222 0 0 1-2.222-2.222V11Z"
+    />
+  </Svg>
+);
+
+export const Notification = (props) => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={22}
+    height={22}
+    fill="none"
+    {...props}
+  >
+    <Path
+      stroke="#fff"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M17.17 16.277a8.333 8.333 0 0 0-11.784 0m12.28-14.384a6.667 6.667 0 0 0-9.106 2.44L20.107 11a6.666 6.666 0 0 0-2.44-9.107Zm0 0c1.064.613.434 3.696-1.408 6.884m1.409-6.884c-1.064-.613-3.417 1.473-5.258 4.662m1.925 1.111L11 13.44M1 19.055a2.667 2.667 0 0 1 1.112-.278 2.667 2.667 0 0 1 2.222 1.111A2.666 2.666 0 0 0 6.556 21a2.666 2.666 0 0 0 2.222-1.11A2.667 2.667 0 0 1 11 18.776a2.668 2.668 0 0 1 2.223 1.111A2.667 2.667 0 0 0 15.444 21a2.666 2.666 0 0 0 2.222-1.11 2.667 2.667 0 0 1 2.222-1.112c.386.011.765.106 1.111.278"
+    />
+  </Svg>
+);
+
+export const LeaveSmall = (props) => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={17}
+    height={22}
+    fill="none"
+    {...props}
+  >
+    <Path
+      stroke="#fff"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M5.678 16.556v1.11c0 .885.296 1.733.822 2.358S7.74 21 8.485 21c.744 0 1.458-.351 1.984-.976.527-.625.822-1.473.822-2.357v-1.111M6.613 3.222c0-.59.198-1.154.549-1.571.35-.417.826-.651 1.323-.651.496 0 .972.234 1.323.65.35.418.548.983.548 1.572 1.074.604 1.99 1.543 2.65 2.717a8.806 8.806 0 0 1 1.092 3.95v3.333c.07.691.277 1.353.602 1.931.325.58.76 1.06 1.27 1.403H1c.51-.343.945-.824 1.27-1.403.325-.579.53-1.24.601-1.93V9.888a8.806 8.806 0 0 1 1.093-3.95c.66-1.174 1.575-2.113 2.65-2.717Z"
+    />
+  </Svg>
+);
+
+export const PayslipSmall = (props) => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={22}
+    height={22}
+    fill="none"
+    {...props}
+  >
+    <Path
+      stroke="#fff"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M14.335 9.89v.01M3.417 6.976a3.333 3.333 0 1 1 5.173-1.53m6.856-3.334v4.225A6.688 6.688 0 0 1 18.4 9.89h1.49A1.111 1.111 0 0 1 21 11v2.223a1.111 1.111 0 0 1-1.11 1.11h-1.492a6.683 6.683 0 0 1-1.842 2.748v2.252a1.667 1.667 0 0 1-3.333 0v-.647a6.715 6.715 0 0 1-1.111.092H7.668c-.373 0-.744-.03-1.112-.092v.647a1.667 1.667 0 0 1-3.333 0v-2.252A6.666 6.666 0 0 1 7.668 5.445h2.777l5-3.333h.001Z"
+    />
+  </Svg>
+);
