@@ -26,7 +26,7 @@ import {
 } from "../../assets/svgs";
 import Navbar from "../common/header/navbar/Navbar";
 
-const Dashboard = () => {
+const Dashboard = ({ navigation }) => {
   const { width } = Dimensions.get("window");
   const gap = 12;
   const itemPerRow = 3;
@@ -146,7 +146,7 @@ const Dashboard = () => {
           </View>
         </View>
       </ScrollView>
-      <Navbar />
+      <Navbar navigation={navigation} />
     </SafeAreaView>
   );
 };

@@ -1,5 +1,5 @@
-import React from "react";
-import { Text, View } from "react-native";
+import React, { useState } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
 import { COLORS } from "../../../../constants";
 import {
   Attendance,
@@ -10,54 +10,73 @@ import {
   PayslipSmall,
 } from "../../../../assets/svgs";
 
-const Navbar = () => {
+import styles from "./navbar.style";
+import { useRouter } from "expo-router";
+
+const Navbar = ({ navigation }) => {
+  const router = useRouter();
+  const [activeTab, setActiveTab] = useState("Home");
+
   const items = [
     {
       id: 1,
       title: "Home",
-      icon: <Home />,
+      icon: (
+        <Home stroke={activeTab === "Home" ? COLORS.textPrimary : "#fff"} />
+      ),
     },
     {
       id: 2,
       title: "Payslip",
-      icon: <PayslipSmall />,
+      icon: (
+        <PayslipSmall
+          stroke={activeTab === "Payslip" ? COLORS.textPrimary : "#fff"}
+        />
+      ),
     },
     {
       id: 3,
       title: "Attendance Report",
-      icon: <AttendanceReport />,
+      icon: (
+        <AttendanceReport
+          stroke={
+            activeTab === "Attendance Report" ? COLORS.textPrimary : "#fff"
+          }
+        />
+      ),
     },
     {
       id: 4,
       title: "Leave",
-      icon: <LeaveSmall />,
+      icon: (
+        <LeaveSmall
+          stroke={activeTab === "Leave" ? COLORS.textPrimary : "#fff"}
+        />
+      ),
     },
     {
       id: 5,
       title: "Notifications",
-      icon: <Notification />,
+      icon: (
+        <Notification
+          stroke={activeTab === "Notifications" ? COLORS.textPrimary : "#fff"}
+        />
+      ),
     },
   ];
   return (
-    <View
-      style={{
-        backgroundColor: COLORS.primary,
-        height: 71,
-        width: "100%",
-        flexDirection: "row",
-      }}
-    >
+    <View style={styles.container}>
       {items.map((item) => (
-        <View
-          style={{
-            width: 100 / 5 + "%",
-            //   backgroundColor: item?.backgroundColor,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          key={item.id}
-        >
-          <View>{item.icon}</View>
+        <View style={styles.grid} key={item.id}>
+          <TouchableOpacity
+            style={styles.iconContainer(activeTab, item.title)}
+            onPress={() => {
+              setActiveTab(item.title);
+              navigation.navigate("Profile");
+            }}
+          >
+            <View>{item.icon}</View>
+          </TouchableOpacity>
         </View>
       ))}
     </View>

@@ -216,7 +216,7 @@ export const AttendanceReport = (props) => (
     {...props}
   >
     <Path
-      stroke="#fff"
+      stroke={props.stroke ?? "#fff"}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}
@@ -234,7 +234,7 @@ export const Home = (props) => (
     {...props}
   >
     <Path
-      stroke="#fff"
+      stroke={props.stroke ?? "#fff"}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}
@@ -252,7 +252,7 @@ export const Notification = (props) => (
     {...props}
   >
     <Path
-      stroke="#fff"
+      stroke={props.stroke ?? "#fff"}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}
@@ -270,7 +270,7 @@ export const LeaveSmall = (props) => (
     {...props}
   >
     <Path
-      stroke="#fff"
+      stroke={props.stroke ?? "#fff"}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}
@@ -288,7 +288,7 @@ export const PayslipSmall = (props) => (
     {...props}
   >
     <Path
-      stroke="#fff"
+      stroke={props.stroke ?? "#fff"}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}
