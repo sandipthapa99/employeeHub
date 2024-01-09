@@ -141,7 +141,7 @@ const Leave = ({ navigation }) => {
               </HStack>
             </Box>
           )}
-          keyExtractor={(item, index) => `${item.id}-${index}`}
+          keyExtractor={(item, index) => index}
         />
       </View>
       {/* </ScrollView> */}

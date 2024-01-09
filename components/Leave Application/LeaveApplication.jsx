@@ -71,7 +71,6 @@ const LeaveApplication = ({ navigation }) => {
     }
     return true;
   };
-  console.log(formData);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -102,7 +101,7 @@ const LeaveApplication = ({ navigation }) => {
             </HStack>
           </TouchableOpacity>
 
-          <HStack space={[2, 3]} justifyContent="space-between">
+          <HStack space={[2, 3]} justifyContent="space-between" mt={2}>
             <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
               Leave Type:
             </Text>
