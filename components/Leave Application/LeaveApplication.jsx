@@ -18,6 +18,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import SelectDropdown from "react-native-select-dropdown";
 import CalendarPicker from "react-native-calendar-picker";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import { applyLeave } from "../Leave/leaveSlice";
 
 const LeaveApplication = () => {
   const today = moment();
@@ -37,14 +39,20 @@ const LeaveApplication = () => {
     "Peter Quill",
   ];
   const [formData, setFormData] = useState({
+    leaveDate: selectedDate.toISOString(),
     leaveType: leaveTypes[0],
     applyTo: Supervisors[0],
     recommendedBy: Supervisors[0],
     halfDay: false,
     reason: "",
+    status: "Pending",
   });
   const onDateChange = (date) => {
     setChoosedDate(date);
+  };
+  const dispatch = useDispatch();
+  const handleSubmit = () => {
+    dispatch(applyLeave(formData));
   };
 
   return (

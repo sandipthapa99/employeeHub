@@ -24,6 +24,8 @@ import Reimbursement from "./components/Reimbursement/Reimbursement";
 import Notification from "./components/Notification/Notification";
 import { useRouter } from "expo-router";
 import LeaveApplication from "./components/Leave Application/LeaveApplication";
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
 SplashScreen.preventAutoHideAsync();
 setTimeout(SplashScreen.hideAsync, 3000);
 
@@ -68,58 +70,60 @@ export default function App() {
 
   return (
     <NativeBaseProvider theme={theme}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Home"
-            component={Login}
-            options={{
-              title: "",
-              headerStyle: {
-                backgroundColor: "#fff",
-              },
-              headerShadowVisible: false,
-            }}
-          />
-          <Stack.Screen
-            name="Dashboard"
-            options={{
-              headerShown: false,
-              headerStyle: {
-                backgroundColor: COLORS.lightWhite,
-              },
-              headerShadowVisible: false,
-              headerLeft: () => <View></View>,
-              headerTitle: "",
-            }}
-            component={Dashboard}
-          />
-          <Stack.Screen name="Attendance" component={Attendance} />
-          <Stack.Screen name="Late/Early" component={LateEarly} />
-          <Stack.Screen name="Birthday" component={Birthday} />
-          <Stack.Screen name="Payslip" component={Payslip} />
-          <Stack.Screen
-            name="Leave"
-            component={Leave}
-            options={{
-              headerTitle: "Leave Report",
-            }}
-          />
-          <Stack.Screen
-            name="LeaveApplication"
-            component={LeaveApplication}
-            options={{
-              headerTitle: "Leave Application",
-            }}
-          />
-          <Stack.Screen name="Employees" component={Employees} />
-          <Stack.Screen name="Settings" component={Settings} />
-          <Stack.Screen name="Reimbursement" component={Reimbursement} />
-          <Stack.Screen name="Notifications" component={Notification} />
-          <Stack.Screen name="Profile" component={Profile} />
-        </Stack.Navigator>
-        {/* <Login /> */}
-      </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Home"
+              component={Login}
+              options={{
+                title: "",
+                headerStyle: {
+                  backgroundColor: "#fff",
+                },
+                headerShadowVisible: false,
+              }}
+            />
+            <Stack.Screen
+              name="Dashboard"
+              options={{
+                headerShown: false,
+                headerStyle: {
+                  backgroundColor: COLORS.lightWhite,
+                },
+                headerShadowVisible: false,
+                headerLeft: () => <View></View>,
+                headerTitle: "",
+              }}
+              component={Dashboard}
+            />
+            <Stack.Screen name="Attendance" component={Attendance} />
+            <Stack.Screen name="Late/Early" component={LateEarly} />
+            <Stack.Screen name="Birthday" component={Birthday} />
+            <Stack.Screen name="Payslip" component={Payslip} />
+            <Stack.Screen
+              name="Leave"
+              component={Leave}
+              options={{
+                headerTitle: "Leave Report",
+              }}
+            />
+            <Stack.Screen
+              name="LeaveApplication"
+              component={LeaveApplication}
+              options={{
+                headerTitle: "Leave Application",
+              }}
+            />
+            <Stack.Screen name="Employees" component={Employees} />
+            <Stack.Screen name="Settings" component={Settings} />
+            <Stack.Screen name="Reimbursement" component={Reimbursement} />
+            <Stack.Screen name="Notifications" component={Notification} />
+            <Stack.Screen name="Profile" component={Profile} />
+          </Stack.Navigator>
+          {/* <Login /> */}
+        </NavigationContainer>
+      </Provider>
     </NativeBaseProvider>
   );
 }
