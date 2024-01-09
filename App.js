@@ -80,7 +80,13 @@ export default function App() {
           <Stack.Screen name="Late/Early" component={LateEarly} />
           <Stack.Screen name="Birthday" component={Birthday} />
           <Stack.Screen name="Payslip" component={Payslip} />
-          <Stack.Screen name="Leave" component={Leave} />
+          <Stack.Screen
+            name="Leave"
+            component={Leave}
+            options={{
+              headerTitle: "Leave Report",
+            }}
+          />
           <Stack.Screen name="Employees" component={Employees} />
           <Stack.Screen name="Settings" component={Settings} />
           <Stack.Screen name="Reimbursement" component={Reimbursement} />
