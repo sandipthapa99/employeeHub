@@ -26,6 +26,7 @@ import { useRouter } from "expo-router";
 import LeaveApplication from "./components/Leave Application/LeaveApplication";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
+import Toast from "react-native-toast-message";
 SplashScreen.preventAutoHideAsync();
 setTimeout(SplashScreen.hideAsync, 3000);
 
@@ -123,6 +124,7 @@ export default function App() {
           </Stack.Navigator>
           {/* <Login /> */}
         </NavigationContainer>
+        <Toast />
       </Provider>
     </NativeBaseProvider>
   );

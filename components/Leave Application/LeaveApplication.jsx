@@ -20,8 +20,10 @@ import CalendarPicker from "react-native-calendar-picker";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { applyLeave } from "../Leave/leaveSlice";
+import Toast from "react-native-toast-message";
+import { showToast } from "../../utils";
 
-const LeaveApplication = () => {
+const LeaveApplication = ({ navigation }) => {
   const today = moment();
   const [showModal, setShowModal] = useState(false);
 
@@ -53,6 +55,12 @@ const LeaveApplication = () => {
   const dispatch = useDispatch();
   const handleSubmit = () => {
     dispatch(applyLeave(formData));
+    showToast(
+      "success",
+      "Success",
+      "Leave application has been submitted successfully!"
+    );
+    navigation.navigate("Leave");
   };
 
   return (
