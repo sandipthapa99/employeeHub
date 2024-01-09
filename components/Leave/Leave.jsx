@@ -35,7 +35,7 @@ const Leave = ({ navigation }) => {
       id: 2,
       date: "2023/12/12",
       type: "Annual",
-      status: "Pending",
+      status: "Approved",
     },
     {
       id: 3,
@@ -73,7 +73,6 @@ const Leave = ({ navigation }) => {
       type: "Annual",
       status: "Approved",
     },
-    0,
   ];
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -93,19 +92,28 @@ const Leave = ({ navigation }) => {
             </View>
             <View style={styles.statsContainer}>
               <View style={styles.stat}>
-                <Text style={styles.statNum} fontSize={24} color={"#FF380D"}>
-                  3
+                <Text style={styles.statNum} fontSize={24} color={"#11CD51"}>
+                  15
                 </Text>
                 <Text fontSize={14} color={COLORS.textPrimary}>
-                  Leave
+                  Total
+                </Text>
+              </View>
+              <View style={styles.stat}>
+                <Text style={styles.statNum} fontSize={24} color={"#FF380D"}>
+                  {data.filter((item) => item.status === "Approved").length}
+                </Text>
+                <Text fontSize={14} color={COLORS.textPrimary}>
+                  Used
                 </Text>
               </View>
               <View style={styles.stat}>
                 <Text style={styles.statNum} fontSize={24} color={"#FF9900"}>
-                  3
+                  {15 -
+                    data.filter((item) => item.status === "Approved").length}
                 </Text>
                 <Text fontSize={14} color={COLORS.textPrimary}>
-                  Late
+                  Available
                 </Text>
               </View>
             </View>
@@ -171,7 +179,10 @@ const Leave = ({ navigation }) => {
           />
         </View>
       </ScrollView>
-      <TouchableOpacity style={styles.requestBtn}>
+      <TouchableOpacity
+        style={styles.requestBtn}
+        onPress={() => navigation.navigate("LeaveApplication")}
+      >
         <Icon as={<MaterialIcons name="add" />} size={5} mr="2" color="white" />
         <Text style={styles.requestText}>New Request</Text>
       </TouchableOpacity>
