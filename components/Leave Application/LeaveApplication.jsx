@@ -28,7 +28,9 @@ const LeaveApplication = ({ navigation }) => {
   const [showModal, setShowModal] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState(today);
-  const [choosedDate, setChoosedDate] = useState();
+  const [choosedDate, setChoosedDate] = useState(today);
+  const [errors, setErrors] = useState({});
+
   var leaveDate = moment(selectedDate).format("YYYY-MM-DD dddd");
 
   const leaveTypes = ["Annual", "Compensation", "Sick Leave"];
@@ -41,7 +43,7 @@ const LeaveApplication = ({ navigation }) => {
     "Peter Quill",
   ];
   const [formData, setFormData] = useState({
-    leaveDate: selectedDate.toISOString(),
+    leaveDate: choosedDate.toISOString(),
     leaveType: leaveTypes[0],
     applyTo: Supervisors[0],
     recommendedBy: Supervisors[0],
@@ -49,6 +51,7 @@ const LeaveApplication = ({ navigation }) => {
     reason: "",
     status: "Pending",
   });
+
   const onDateChange = (date) => {
     setChoosedDate(date);
   };
@@ -62,6 +65,13 @@ const LeaveApplication = ({ navigation }) => {
     );
     navigation.navigate("Leave");
   };
+  const validate = () => {
+    if (!formData.reason) {
+      return false;
+    }
+    return true;
+  };
+  console.log(formData);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -211,20 +221,29 @@ const LeaveApplication = ({ navigation }) => {
           </HStack>
           <View style={{ marginTop: 3 }}>
             <Text>Reason:</Text>
-            <TextArea
-              w={"95%"}
-              h={20}
-              placeholder="Please specify the reason..."
-              onChangeText={(text) =>
-                setFormData({ ...formData, reason: text })
-              }
-            />
+            <FormControl isRequired isInvalid={"reason" in errors}>
+              <TextArea
+                w={"95%"}
+                h={20}
+                placeholder="Please specify the reason..."
+                onChangeText={(text) =>
+                  setFormData({ ...formData, reason: text })
+                }
+              />
+              {"reason" in errors ? (
+                <FormControl.ErrorMessage>
+                  Please specify the reason!
+                </FormControl.ErrorMessage>
+              ) : (
+                ""
+              )}
+            </FormControl>
           </View>
         </View>
         <Button
           mt={16}
           onPress={() => {
-            handleSubmit();
+            validate() ? handleSubmit() : console.log("Validation Failed");
           }}
           fontFamily={FONT.bold}
         >
@@ -266,6 +285,10 @@ const LeaveApplication = ({ navigation }) => {
                 onPress={() => {
                   setShowModal(false);
                   setSelectedDate(choosedDate);
+                  setFormData({
+                    ...formData,
+                    leaveDate: choosedDate.toISOString(),
+                  });
                 }}
               >
                 Confirm
