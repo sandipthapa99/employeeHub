@@ -4,7 +4,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useCallback, useState } from "react";
 
 import Login from "./components/Login/Login";
-import { NativeBaseProvider } from "native-base";
+import { NativeBaseProvider, extendTheme } from "native-base";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Profile from "./components/Dashboard/Profile";
@@ -23,6 +23,7 @@ import Settings from "./components/Settings/Settings";
 import Reimbursement from "./components/Reimbursement/Reimbursement";
 import Notification from "./components/Notification/Notification";
 import { useRouter } from "expo-router";
+import LeaveApplication from "./components/Leave Application/LeaveApplication";
 SplashScreen.preventAutoHideAsync();
 setTimeout(SplashScreen.hideAsync, 3000);
 
@@ -48,8 +49,25 @@ export default function App() {
 
   const Stack = createNativeStackNavigator();
 
+  const theme = extendTheme({
+    colors: {
+      primary: {
+        50: "#E3F2F9",
+        100: "#C5E4F3",
+        200: "#A2D4EC",
+        300: "#7AC1E4",
+        400: "#47A9DA",
+        500: "#0088CC",
+        600: "#007FEE",
+        700: "#006BA1",
+        800: "#005885",
+        900: "#003F5E",
+      },
+    },
+  });
+
   return (
-    <NativeBaseProvider>
+    <NativeBaseProvider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
@@ -85,6 +103,13 @@ export default function App() {
             component={Leave}
             options={{
               headerTitle: "Leave Report",
+            }}
+          />
+          <Stack.Screen
+            name="LeaveApplication"
+            component={LeaveApplication}
+            options={{
+              headerTitle: "Leave Application",
             }}
           />
           <Stack.Screen name="Employees" component={Employees} />

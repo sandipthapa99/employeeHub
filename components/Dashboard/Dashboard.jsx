@@ -113,7 +113,6 @@ const Dashboard = ({ navigation }) => {
               onChange={(item) => {
                 setValue(item.value);
               }}
-              // renderLeftIcon={() => <Text>{value}</Text>}
             />
           </View>
           <View style={styles.upperDash}>

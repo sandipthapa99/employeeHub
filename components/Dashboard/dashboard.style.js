@@ -88,14 +88,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: FONT.regular,
   },
-  // iconStyle: {
-  //   width: 20,
-  //   height: 20,
-  // },
-  // inputSearchStyle: {
-  //   height: 40,
-  //   fontSize: 16,
-  // },
 });
 
 export default styles;
