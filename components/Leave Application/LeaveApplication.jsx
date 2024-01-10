@@ -66,7 +66,8 @@ const LeaveApplication = ({ navigation }) => {
     navigation.navigate("Leave");
   };
   const validate = () => {
-    if (!formData.reason) {
+    if (formData.reason == "") {
+      setErrors({ ...errors, reason: "Reason is required" });
       return false;
     }
     return true;
