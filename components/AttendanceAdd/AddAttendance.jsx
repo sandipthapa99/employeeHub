@@ -1,5 +1,5 @@
-import { Button, HStack, Text } from "native-base";
-import React from "react";
+import { Button, Center, HStack, Icon, Modal, Text } from "native-base";
+import React, { useState } from "react";
 import { SafeAreaView, ScrollView, View } from "react-native";
 import { COLORS, FONT } from "../../constants";
 import CalendarPicker from "react-native-calendar-picker";
@@ -7,11 +7,17 @@ import CalendarPicker from "react-native-calendar-picker";
 import styles from "./addAttendance.style";
 import SelectDropdown from "react-native-select-dropdown";
 import { MaterialIcons } from "@expo/vector-icons";
+import moment from "moment";
+import { useDispatch } from "react-redux";
+import { addAttendance } from "../Attendance/attendanceSlice";
 
 const AddAttendance = () => {
+  const today = moment();
+  var attendanceDate = moment(today).format("YYYY-MM-DD dddd");
   const onDateChange = (date) => {};
-  const data = ["1", "2"];
+  const [signIn, setSignIn] = useState(false);
   const attendanceType = ["Sign In", "Sign Out"];
+  const dayTypes = ["working", "Leave", "Weekend"];
   const Supervisors = [
     "Charlotte Cloe",
     "James Oliver",
@@ -20,6 +26,18 @@ const AddAttendance = () => {
     "Henry Cavil",
     "Peter Quill",
   ];
+  const [showModal, setShowModal] = useState(false);
+  const [formData, setFormData] = useState({
+    date: today.toISOString(),
+    dayType: dayTypes[0],
+    workedHour: "",
+    in: "",
+    out: "",
+  });
+  const dispatch = useDispatch();
+  const handleSubmit = () => {
+    dispatch(addAttendance(formData));
+  };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <ScrollView>
@@ -74,7 +92,7 @@ const AddAttendance = () => {
                 <SelectDropdown
                   data={attendanceType}
                   onSelect={(selectedItem, index) => {
-                    //   setFormData({ ...formData, leaveType: selectedItem });
+                    setFormData({ ...formData, leaveType: selectedItem });
                   }}
                   defaultButtonText={attendanceType[0]}
                   buttonTextAfterSelection={(selectedItem, index) => {
@@ -102,8 +120,10 @@ const AddAttendance = () => {
               </View>
               <View style={{ flex: 1, position: "relative" }}>
                 <Button
-                  // mt={16}
-                  onPress={() => {}}
+                  onPress={() => {
+                    handleSubmit();
+                    setShowModal(true);
+                  }}
                   fontFamily={FONT.bold}
                   size={"lg"}
                 >
@@ -113,6 +133,23 @@ const AddAttendance = () => {
             </HStack>
           </View>
         </View>
+        <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+          <Modal.Content maxWidth="400px">
+            <Modal.CloseButton />
+            <Modal.Body>
+              <Center padding={16}>
+                <Icon
+                  as={<MaterialIcons name="check-circle-outline" />}
+                  size={16}
+                  ml="2"
+                  color="#29DF3B"
+                />
+                <Text>Attendance Recorded</Text>
+                <Text>{signIn ? "Check in" : "Check out"} at: 09:41 AM</Text>
+              </Center>
+            </Modal.Body>
+          </Modal.Content>
+        </Modal>
       </ScrollView>
     </SafeAreaView>
   );
