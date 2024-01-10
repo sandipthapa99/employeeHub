@@ -144,7 +144,7 @@ const Leave = ({ navigation }) => {
                 justifyContent="space-between"
                 paddingX={4}
               >
-                <Text>{moment("12-12-2012").format("DD/MM/YYYY")}</Text>
+                <Text>{moment("2023-12-28").format("DD/MM/YYYY")}</Text>
                 <VStack>
                   <Text
                     _dark={{

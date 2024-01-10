@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   leaveApplications: [
     {
-      leaveDate: "28-12-2023",
+      leaveDate: "2023-12-28",
       leaveType: "Annual",
       applyTo: "",
       recommendedBy: "",
@@ -12,7 +12,7 @@ const initialState = {
       status: "Pending",
     },
     {
-      leaveDate: "27-12-2023",
+      leaveDate: "2023-12-28",
       leaveType: "Sick",
       applyTo: "",
       recommendedBy: "",
@@ -21,7 +21,7 @@ const initialState = {
       status: "Approved",
     },
     {
-      leaveDate: "27-12-2023",
+      leaveDate: "2023-12-28",
       leaveType: "Annual",
       applyTo: "",
       recommendedBy: "",
@@ -30,7 +30,7 @@ const initialState = {
       status: "Rejected",
     },
     {
-      leaveDate: "13-08-2023",
+      leaveDate: "2023-12-28",
       leaveType: "Sick",
       applyTo: "",
       recommendedBy: "",

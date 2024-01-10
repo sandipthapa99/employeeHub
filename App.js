@@ -27,6 +27,7 @@ import LeaveApplication from "./components/Leave Application/LeaveApplication";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import Toast from "react-native-toast-message";
+import AddAttendance from "./components/AttendanceAdd/AddAttendance";
 SplashScreen.preventAutoHideAsync();
 setTimeout(SplashScreen.hideAsync, 3000);
 
@@ -98,7 +99,28 @@ export default function App() {
               }}
               component={Dashboard}
             />
-            <Stack.Screen name="Attendance" component={Attendance} />
+            <Stack.Screen
+              name="Attendance"
+              component={Attendance}
+              options={{
+                headerStyle: {
+                  backgroundColor: COLORS.lightWhite,
+                },
+                headerShadowVisible: false,
+                headerTitle: "Attendance Report",
+              }}
+            />
+            <Stack.Screen
+              name="addAttendance"
+              component={AddAttendance}
+              options={{
+                headerTitle: "Add Attendance",
+                headerShadowVisible: false,
+                headerStyle: {
+                  backgroundColor: COLORS.lightWhite,
+                },
+              }}
+            />
             <Stack.Screen name="Late/Early" component={LateEarly} />
             <Stack.Screen name="Birthday" component={Birthday} />
             <Stack.Screen name="Payslip" component={Payslip} />
@@ -109,8 +131,8 @@ export default function App() {
                 headerStyle: {
                   backgroundColor: COLORS.lightWhite,
                 },
-                headerTitle: "Leave Report",
                 headerShadowVisible: false,
+                headerTitle: "Leave Report",
               }}
             />
             <Stack.Screen
@@ -119,6 +141,9 @@ export default function App() {
               options={{
                 headerTitle: "Leave Application",
                 headerShadowVisible: false,
+                headerStyle: {
+                  backgroundColor: COLORS.lightWhite,
+                },
               }}
             />
             <Stack.Screen name="Employees" component={Employees} />
