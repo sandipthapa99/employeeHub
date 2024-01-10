@@ -93,6 +93,7 @@ const Dashboard = ({ navigation }) => {
             <TouchableOpacity
               style={styles.headerLeft}
               onPress={() => navigation.navigate("Profile")}
+              activeOpacity={0.6}
             >
               <ScreenHeaderBtn iconUrl={images.user} dimension={"100%"} />
               <Text style={styles.username}>John Doe</Text>
@@ -167,6 +168,7 @@ const Dashboard = ({ navigation }) => {
                   onPress={() => {
                     navigation.navigate(item.title);
                   }}
+                  activeOpacity={0.6}
                   key={item.id}
                 >
                   <View>{item.icon}</View>

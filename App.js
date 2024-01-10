@@ -106,7 +106,11 @@ export default function App() {
               name="Leave"
               component={Leave}
               options={{
+                headerStyle: {
+                  backgroundColor: COLORS.lightWhite,
+                },
                 headerTitle: "Leave Report",
+                headerShadowVisible: false,
               }}
             />
             <Stack.Screen
@@ -114,6 +118,7 @@ export default function App() {
               component={LeaveApplication}
               options={{
                 headerTitle: "Leave Application",
+                headerShadowVisible: false,
               }}
             />
             <Stack.Screen name="Employees" component={Employees} />

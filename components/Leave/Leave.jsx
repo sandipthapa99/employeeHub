@@ -40,7 +40,7 @@ const Leave = ({ navigation }) => {
       leave: state.leave,
     };
   });
-  console.log(leave.leaveApplications);
+  const reversedData = leave.leaveApplications.slice(0).reverse();
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <ScrollView>
@@ -109,22 +109,42 @@ const Leave = ({ navigation }) => {
               Status
             </Text>
           </HStack>
-          {leave.leaveApplications.map((item, index) => (
-            <Box
-              borderBottomWidth="1"
-              _dark={{
-                borderColor: "muted.50",
-              }}
-              borderColor={COLORS.lightWhite}
-              py="2"
-              key={index}
-            >
+          <View style={styles.listContainer}>
+            {reversedData.map((item, index) => (
+              <Box
+                borderBottomWidth="1"
+                borderColor={COLORS.lightWhite}
+                py="2"
+                key={index}
+              >
+                <HStack
+                  space={[2, 3]}
+                  justifyContent="space-between"
+                  paddingX={4}
+                >
+                  <Text>{moment(item.leaveDate).format("DD/MM/YYYY")}</Text>
+                  <VStack>
+                    <Text
+                      _dark={{
+                        color: "warmGray.50",
+                      }}
+                      color="coolGray.800"
+                      bold
+                    >
+                      {item.leaveType}
+                    </Text>
+                  </VStack>
+                  <StatusButton status={item.status} />
+                </HStack>
+              </Box>
+            ))}
+            <Box py="2">
               <HStack
                 space={[2, 3]}
                 justifyContent="space-between"
                 paddingX={4}
               >
-                <Text>{moment(item.leaveDate).format("DD/MM/YYYY")}</Text>
+                <Text>{moment("12-12-2012").format("DD/MM/YYYY")}</Text>
                 <VStack>
                   <Text
                     _dark={{
@@ -133,13 +153,14 @@ const Leave = ({ navigation }) => {
                     color="coolGray.800"
                     bold
                   >
-                    {item.leaveType}
+                    Test
                   </Text>
                 </VStack>
-                <StatusButton status={item.status} />
+                <StatusButton status={"Approved"} />
               </HStack>
             </Box>
-          ))}
+          </View>
+
           {/* <FlatList
             style={styles.listContainer}
             data={leave.leaveApplications}
@@ -180,13 +201,14 @@ const Leave = ({ navigation }) => {
       <TouchableOpacity
         style={styles.requestBtn}
         onPress={() => navigation.navigate("LeaveApplication")}
+        activeOpacity={0.6}
       >
         <Icon as={<MaterialIcons name="add" />} size={5} mr="2" color="white" />
         <Text style={styles.requestText}>New Request</Text>
       </TouchableOpacity>
-      <View style={{ position: "absolute", bottom: 0 }}>
-        <Navbar navigation={navigation} page={"Leave"} />
-      </View>
+      {/* <View style={{ position: "absolute", bottom: 0 }}> */}
+      <Navbar navigation={navigation} page={"Leave"} />
+      {/* </View> */}
     </SafeAreaView>
   );
 };
