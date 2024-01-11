@@ -34,7 +34,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#EFEFEF",
     borderBottomColor: "#C5C5C5",
   },
-  dropdown1RowTxtStyle: { color: "#444", textAlign: "left" },
+  dropdown1RowTxtStyle: {
+    color: COLORS.textPrimary,
+    textAlign: "left",
+    fontFamily: FONT.medium,
+    fontSize: 14,
+  },
 });
 
 export default styles;

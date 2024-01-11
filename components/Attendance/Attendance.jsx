@@ -1,5 +1,5 @@
-import { Box, HStack, Icon, Text, VStack } from "native-base";
-import React from "react";
+import { Box, Button, HStack, Icon, Text, VStack } from "native-base";
+import React, { useState } from "react";
 import { SafeAreaView, ScrollView, TouchableOpacity, View } from "react-native";
 import Navbar from "../common/header/navbar/Navbar";
 
@@ -8,6 +8,7 @@ import { COLORS, FONT } from "../../constants";
 import { useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import moment from "moment";
+import SelectDropdown from "react-native-select-dropdown";
 const Attendance = ({ navigation }) => {
   const { attendance } = useSelector((state) => {
     return {
@@ -15,22 +16,105 @@ const Attendance = ({ navigation }) => {
     };
   });
   const reversedData = attendance.attendanceRecords.slice(0).reverse();
+  const years = ["2024", "2023"];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const [selectedYear, setSelectedYear] = useState(years[0]);
+  const [selectedMonth, setSelectedMonth] = useState(months[0]);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.upperDash}>
-            <View style={styles.today}>
-              <Icon
-                as={<MaterialIcons name="today" />}
-                size={5}
-                ml="2"
-                color="muted.400"
+            <HStack
+              justifyContent="space-between"
+              paddingX={6}
+              style={{ alignItems: "center" }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                }}
+              >
+                <Icon
+                  as={<MaterialIcons name="today" />}
+                  size={5}
+                  ml="2"
+                  color="muted.400"
+                />
+                <SelectDropdown
+                  data={years}
+                  onSelect={(selectedItem, index) => {
+                    setSelectedYear(selectedItem);
+                  }}
+                  defaultButtonText={years[0]}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return selectedItem;
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return item;
+                  }}
+                  buttonStyle={styles.dropdown1BtnStyle}
+                  buttonTextStyle={styles.dropdown1BtnTxtStyle}
+                  renderDropdownIcon={(isOpened) => {
+                    return (
+                      <MaterialIcons
+                        name={isOpened ? "expand-less" : "expand-more"}
+                        color={"#444"}
+                        size={18}
+                      />
+                    );
+                  }}
+                  dropdownIconPosition={"right"}
+                  dropdownStyle={styles.dropdown1DropdownStyle}
+                  rowStyle={styles.dropdown1RowStyle}
+                  rowTextStyle={styles.dropdown1RowTxtStyle}
+                />
+              </View>
+              <SelectDropdown
+                data={months}
+                onSelect={(selectedItem, index) => {
+                  setSelectedMonth(selectedItem);
+                }}
+                defaultButtonText={months[0]}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  return selectedItem;
+                }}
+                rowTextForSelection={(item, index) => {
+                  return item;
+                }}
+                buttonStyle={styles.dropdown2BtnStyle}
+                buttonTextStyle={styles.dropdown1BtnTxtStyle}
+                renderDropdownIcon={(isOpened) => {
+                  return (
+                    <MaterialIcons
+                      name={isOpened ? "expand-less" : "expand-more"}
+                      color={"#444"}
+                      size={18}
+                    />
+                  );
+                }}
+                dropdownIconPosition={"right"}
+                dropdownStyle={styles.dropdown1DropdownStyle}
+                rowStyle={styles.dropdown1RowStyle}
+                rowTextStyle={styles.dropdown1RowTxtStyle}
               />
-              <Text ml={2} style={styles.date}>
-                2024 January
-              </Text>
-            </View>
+              <Button onPress={() => {}} size={"sm"}>
+                View
+              </Button>
+            </HStack>
           </View>
           <HStack
             space={[2, 3]}
