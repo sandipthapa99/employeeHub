@@ -13,9 +13,8 @@ import { addAttendance } from "../Attendance/attendanceSlice";
 
 const AddAttendance = () => {
   const today = moment();
-  var attendanceDate = moment(today).format("YYYY-MM-DD dddd");
   const onDateChange = (date) => {};
-  const [signIn, setSignIn] = useState(false);
+  const [signIn, setSignIn] = useState(true);
   const attendanceType = ["Sign In", "Sign Out"];
   const dayTypes = ["working", "Leave", "Weekend"];
   const Supervisors = [
@@ -92,7 +91,12 @@ const AddAttendance = () => {
                 <SelectDropdown
                   data={attendanceType}
                   onSelect={(selectedItem, index) => {
-                    setFormData({ ...formData, leaveType: selectedItem });
+                    if (selectedItem === "Sign In") {
+                      setSignIn(true);
+                    } else {
+                      setSignIn(false);
+                    }
+                    // setFormData({ ...formData, leaveType: selectedItem });
                   }}
                   defaultButtonText={attendanceType[0]}
                   buttonTextAfterSelection={(selectedItem, index) => {
@@ -137,15 +141,20 @@ const AddAttendance = () => {
           <Modal.Content maxWidth="400px">
             <Modal.CloseButton />
             <Modal.Body>
-              <Center padding={16}>
+              <Center padding={1} paddingTop={10} paddingBottom={20}>
                 <Icon
                   as={<MaterialIcons name="check-circle-outline" />}
                   size={16}
-                  ml="2"
+                  mb="8"
                   color="#29DF3B"
                 />
-                <Text>Attendance Recorded</Text>
-                <Text>{signIn ? "Check in" : "Check out"} at: 09:41 AM</Text>
+                <Text style={styles.successModalTitle}>
+                  Attendance Recorded
+                </Text>
+                <Text>
+                  {signIn ? "Check in" : "Check out"} at:{" "}
+                  {moment(today).format("LT")}
+                </Text>
               </Center>
             </Modal.Body>
           </Modal.Content>

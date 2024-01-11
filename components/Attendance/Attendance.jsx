@@ -14,6 +14,7 @@ const Attendance = ({ navigation }) => {
       attendance: state.attendance,
     };
   });
+  const reversedData = attendance.attendanceRecords.slice(0).reverse();
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <ScrollView>
@@ -54,7 +55,7 @@ const Attendance = ({ navigation }) => {
             </Text>
           </HStack>
           <View style={styles.listContainer}>
-            {attendance.attendanceRecords.map((item, index) => (
+            {reversedData.map((item, index) => (
               <Box
                 borderBottomWidth="1"
                 borderColor={COLORS.lightWhite}
