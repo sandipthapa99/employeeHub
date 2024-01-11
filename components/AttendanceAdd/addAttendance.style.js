@@ -47,6 +47,18 @@ const styles = StyleSheet.create({
     fontFamily: FONT.medium,
     fontSize: 12,
   },
+  successModalTitle: {
+    fontFamily: FONT.medium,
+    fontSize: 20,
+    color: COLORS.textPrimary,
+    textAlign: "center",
+  },
+  successModalSubTitle: {
+    fontFamily: FONT.regular,
+    fontSize: 14,
+    color: COLORS.textGray,
+    textAlign: "center",
+  },
 });
 
 export default styles;

@@ -1,5 +1,5 @@
-import { Box, HStack, Icon, Text, VStack } from "native-base";
-import React from "react";
+import { Box, Button, HStack, Icon, Text, VStack } from "native-base";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, TouchableOpacity, View } from "react-native";
 import Navbar from "../common/header/navbar/Navbar";
 
@@ -8,28 +8,138 @@ import { COLORS, FONT } from "../../constants";
 import { useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import moment from "moment";
+import SelectDropdown from "react-native-select-dropdown";
 const Attendance = ({ navigation }) => {
   const { attendance } = useSelector((state) => {
     return {
       attendance: state.attendance,
     };
   });
+  const reversedData = attendance.attendanceRecords.slice(0).reverse();
+  const years = ["2024", "2023"];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const filterData = (data, year, month) => {
+    const res = data.filter(
+      (item) =>
+        moment(item.date).format("LL").includes(year) &&
+        moment(item.date).format("LL").includes(month)
+    );
+    return res;
+  };
+  const [selectedYear, setSelectedYear] = useState(years[0]);
+  const [selectedMonth, setSelectedMonth] = useState(months[0]);
+  const initialData = filterData(
+    attendance.attendanceRecords,
+    selectedYear,
+    selectedMonth
+  );
+  const [filteredData, setFilteredData] = useState(initialData);
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.upperDash}>
-            <View style={styles.today}>
-              <Icon
-                as={<MaterialIcons name="today" />}
-                size={5}
-                ml="2"
-                color="muted.400"
+            <HStack
+              justifyContent="space-between"
+              paddingX={6}
+              style={{ alignItems: "center" }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                }}
+              >
+                <Icon
+                  as={<MaterialIcons name="today" />}
+                  size={5}
+                  ml="2"
+                  color="muted.400"
+                />
+                <SelectDropdown
+                  data={years}
+                  onSelect={(selectedItem, index) => {
+                    setSelectedYear(selectedItem);
+                  }}
+                  defaultButtonText={years[0]}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return selectedItem;
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return item;
+                  }}
+                  buttonStyle={styles.dropdown1BtnStyle}
+                  buttonTextStyle={styles.dropdown1BtnTxtStyle}
+                  renderDropdownIcon={(isOpened) => {
+                    return (
+                      <MaterialIcons
+                        name={isOpened ? "expand-less" : "expand-more"}
+                        color={"#444"}
+                        size={18}
+                      />
+                    );
+                  }}
+                  dropdownIconPosition={"right"}
+                  dropdownStyle={styles.dropdown1DropdownStyle}
+                  rowStyle={styles.dropdown1RowStyle}
+                  rowTextStyle={styles.dropdown1RowTxtStyle}
+                />
+              </View>
+              <SelectDropdown
+                data={months}
+                onSelect={(selectedItem, index) => {
+                  setSelectedMonth(selectedItem);
+                }}
+                defaultButtonText={months[0]}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  return selectedItem;
+                }}
+                rowTextForSelection={(item, index) => {
+                  return item;
+                }}
+                buttonStyle={styles.dropdown2BtnStyle}
+                buttonTextStyle={styles.dropdown1BtnTxtStyle}
+                renderDropdownIcon={(isOpened) => {
+                  return (
+                    <MaterialIcons
+                      name={isOpened ? "expand-less" : "expand-more"}
+                      color={"#444"}
+                      size={18}
+                    />
+                  );
+                }}
+                dropdownIconPosition={"right"}
+                dropdownStyle={styles.dropdown1DropdownStyle}
+                rowStyle={styles.dropdown1RowStyle}
+                rowTextStyle={styles.dropdown1RowTxtStyle}
               />
-              <Text ml={2} style={styles.date}>
-                2024 January
-              </Text>
-            </View>
+              <Button
+                onPress={() => {
+                  const data = filterData(
+                    attendance.attendanceRecords,
+                    selectedYear,
+                    selectedMonth
+                  );
+                  setFilteredData(data);
+                }}
+                size={"sm"}
+              >
+                View
+              </Button>
+            </HStack>
           </View>
           <HStack
             space={[2, 3]}
@@ -54,67 +164,52 @@ const Attendance = ({ navigation }) => {
             </Text>
           </HStack>
           <View style={styles.listContainer}>
-            {attendance.attendanceRecords.map((item, index) => (
-              <Box
-                borderBottomWidth="1"
-                borderColor={COLORS.lightWhite}
-                py="2"
-                key={index}
-              >
-                <HStack
-                  space={[2, 3]}
-                  justifyContent="space-between"
-                  paddingX={4}
+            {filteredData && filteredData.length > 0 ? (
+              filteredData.map((item, index) => (
+                <Box
+                  borderBottomWidth="1"
+                  borderColor={COLORS.lightWhite}
+                  py="2"
+                  key={index}
                 >
-                  <Text
-                    color={COLORS.textPrimary}
-                    fontFamily={FONT.regular}
-                    fontSize={12}
+                  <HStack
+                    space={[2, 3]}
+                    justifyContent="space-between"
+                    paddingX={4}
                   >
-                    {moment(item.date).format("DD/MM/YYYY")}
-                  </Text>
-                  <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
-                    {item.dayType}
-                  </Text>
-                  <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
-                    {item.workedHour}
-                  </Text>
-                  <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
-                    {item.in}
-                  </Text>
-                  <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
-                    {item.out}
-                  </Text>
-                </HStack>
-              </Box>
-            ))}
-            <Box py="2">
-              <HStack
-                space={[2, 3]}
-                justifyContent="space-between"
-                paddingX={4}
+                    <Text
+                      color={COLORS.textPrimary}
+                      fontFamily={FONT.regular}
+                      fontSize={12}
+                    >
+                      {moment(item.date).format("DD/MM/YYYY")}
+                    </Text>
+                    <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
+                      {!item.dayType == "" ? item.dayType : "-"}
+                    </Text>
+                    <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
+                      {!item.workedHour == "" ? item.workedHour : "-"}
+                    </Text>
+                    <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
+                      {item.in !== "" ? item.in : "-"}
+                    </Text>
+                    <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
+                      {!item.out == "" ? item.out : "-"}
+                    </Text>
+                  </HStack>
+                </Box>
+              ))
+            ) : (
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontFamily: FONT.medium,
+                  paddingVertical: 24,
+                }}
               >
-                <Text
-                  color={COLORS.textPrimary}
-                  fontFamily={FONT.regular}
-                  fontSize={12}
-                >
-                  {moment("2024-12-12").format("DD/MM/YYYY")}
-                </Text>
-                <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
-                  {"Working"}
-                </Text>
-                <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
-                  {"9hrs"}
-                </Text>
-                <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
-                  {"09:00"}
-                </Text>
-                <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
-                  {"18:00"}
-                </Text>
-              </HStack>
-            </Box>
+                No Data Available for selected Date
+              </Text>
+            )}
           </View>
         </View>
       </ScrollView>
