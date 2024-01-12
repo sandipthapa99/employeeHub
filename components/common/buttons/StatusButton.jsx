@@ -5,7 +5,7 @@ import styles from "./statusButton.style";
 const StatusButton = ({ status }) => {
   return (
     <View style={styles.container(status)}>
-      <Text style={styles.text}>{status}</Text>
+      <Text style={styles.text(status)}>{status}</Text>
     </View>
   );
 };

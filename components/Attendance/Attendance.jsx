@@ -9,13 +9,13 @@ import { useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import moment from "moment";
 import SelectDropdown from "react-native-select-dropdown";
+import StatusButton from "../common/buttons/StatusButton";
 const Attendance = ({ navigation }) => {
   const { attendance } = useSelector((state) => {
     return {
       attendance: state.attendance,
     };
   });
-  const reversedData = attendance.attendanceRecords.slice(0).reverse();
   const years = ["2024", "2023"];
   const months = [
     "January",
@@ -47,6 +47,7 @@ const Attendance = ({ navigation }) => {
     selectedMonth
   );
   const [filteredData, setFilteredData] = useState(initialData);
+  const reversedData = filteredData.slice(0).reverse();
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -164,8 +165,8 @@ const Attendance = ({ navigation }) => {
             </Text>
           </HStack>
           <View style={styles.listContainer}>
-            {filteredData && filteredData.length > 0 ? (
-              filteredData.map((item, index) => (
+            {reversedData && reversedData.length > 0 ? (
+              reversedData.map((item, index) => (
                 <Box
                   borderBottomWidth="1"
                   borderColor={COLORS.lightWhite}
@@ -185,7 +186,11 @@ const Attendance = ({ navigation }) => {
                       {moment(item.date).format("DD/MM/YYYY")}
                     </Text>
                     <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
-                      {!item.dayType == "" ? item.dayType : "-"}
+                      {!item.dayType == "" ? (
+                        <StatusButton status={item.dayType} />
+                      ) : (
+                        "-"
+                      )}
                     </Text>
                     <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
                       {!item.workedHour == "" ? item.workedHour : "-"}
