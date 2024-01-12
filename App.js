@@ -28,6 +28,7 @@ import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import Toast from "react-native-toast-message";
 import AddAttendance from "./components/AttendanceAdd/AddAttendance";
+import AddReimbursement from "./components/ReimbursementAdd/AddReimbursement";
 SplashScreen.preventAutoHideAsync();
 setTimeout(SplashScreen.hideAsync, 3000);
 
@@ -148,7 +149,28 @@ export default function App() {
             />
             <Stack.Screen name="Employees" component={Employees} />
             <Stack.Screen name="Settings" component={Settings} />
-            <Stack.Screen name="Reimbursement" component={Reimbursement} />
+            <Stack.Screen
+              name="Reimbursement"
+              component={Reimbursement}
+              options={{
+                headerTitle: "Reimbursement",
+                headerShadowVisible: false,
+                headerStyle: {
+                  backgroundColor: COLORS.lightWhite,
+                },
+              }}
+            />
+            <Stack.Screen
+              name="applyReimbursement"
+              component={AddReimbursement}
+              options={{
+                headerTitle: "Apply Reimbursement",
+                headerShadowVisible: false,
+                headerStyle: {
+                  backgroundColor: COLORS.lightWhite,
+                },
+              }}
+            />
             <Stack.Screen name="Notifications" component={Notification} />
             <Stack.Screen name="Profile" component={Profile} />
           </Stack.Navigator>
