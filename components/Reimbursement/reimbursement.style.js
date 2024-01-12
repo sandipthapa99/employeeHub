@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     position: "absolute",
     right: 0,
-    bottom: 80,
+    bottom: 40,
   },
   requestText: {
     color: COLORS.white,

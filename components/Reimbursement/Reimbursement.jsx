@@ -23,7 +23,7 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import StatusButton from "../common/buttons/StatusButton";
 
-const Reimbursement = () => {
+const Reimbursement = ({ navigation }) => {
   const { reimbursement } = useSelector((state) => {
     return {
       reimbursement: state.reimbursement,
@@ -122,6 +122,14 @@ const Reimbursement = () => {
           </View>
         </View>
       </ScrollView>
+      <TouchableOpacity
+        style={styles.requestBtn}
+        onPress={() => navigation.navigate("applyReimbursement")}
+        activeOpacity={0.6}
+      >
+        <Icon as={<MaterialIcons name="add" />} size={5} mr="2" color="white" />
+        <Text style={styles.requestText}>New Request</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
