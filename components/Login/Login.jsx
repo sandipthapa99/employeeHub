@@ -20,6 +20,24 @@ import styles from "./login.style";
 const Login = ({ navigation }) => {
   const [show, setShow] = useState(false);
   const router = useRouter();
+  const [errors, setErrors] = useState({});
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const validate = () => {
+    if (formData.email !== "Test") {
+      setErrors({ ...errors, email: "Invalid Credentials" });
+      return false;
+    } else if (formData.password !== "Test") {
+      setErrors({ ...errors, email: "Invalid Credentials" });
+      return false;
+    }
+    setErrors({});
+    return true;
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
@@ -29,7 +47,7 @@ const Login = ({ navigation }) => {
           <Text style={styles.subText}>It's good to see you again. </Text>
         </View>
         <Stack space={4} w="100%" alignItems="center">
-          <FormControl>
+          <FormControl isRequired isInvalid={"email" in errors}>
             <FormControl.Label>Email</FormControl.Label>
             <Input
               InputLeftElement={
@@ -40,13 +58,21 @@ const Login = ({ navigation }) => {
                   color="muted.400"
                 />
               }
+              onChangeText={(text) => setFormData({ ...formData, email: text })}
               placeholder="username@company.com"
               style={{
                 fontFamily: "Poppins-Regular",
               }}
             />
+            {"email" in errors ? (
+              <FormControl.ErrorMessage>
+                Invalid Credentials!
+              </FormControl.ErrorMessage>
+            ) : (
+              ""
+            )}
           </FormControl>
-          <FormControl>
+          <FormControl isRequired isInvalid={"email" in errors}>
             <FormControl.Label>Password</FormControl.Label>
             <Input
               type={show ? "text" : "password"}
@@ -57,6 +83,9 @@ const Login = ({ navigation }) => {
                   ml="2"
                   color="muted.400"
                 />
+              }
+              onChangeText={(text) =>
+                setFormData({ ...formData, password: text })
               }
               style={{ fontFamily: "Poppins-Regular" }}
               InputRightElement={
@@ -75,6 +104,13 @@ const Login = ({ navigation }) => {
               }
               placeholder="Password"
             />
+            {"email" in errors ? (
+              <FormControl.ErrorMessage>
+                Invalid Credentials!
+              </FormControl.ErrorMessage>
+            ) : (
+              ""
+            )}
           </FormControl>
         </Stack>
         <View style={styles.rememberSection}>
@@ -91,7 +127,11 @@ const Login = ({ navigation }) => {
             colorScheme="secondary"
             width={"80%"}
             style={{ backgroundColor: COLORS.primary }}
-            onPress={() => navigation.navigate("Dashboard")}
+            onPress={() => {
+              validate()
+                ? navigation.navigate("Dashboard")
+                : console.log("Login Failed");
+            }}
           >
             LOGIN
           </Button>
