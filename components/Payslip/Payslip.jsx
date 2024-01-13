@@ -38,14 +38,13 @@ const Payslip = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   console.log(loading);
 
-  const series = [123, 321];
-  const sliceColor = ["#FFA84A", "#9B88ED"];
-  // console.log("ActiveData:", activeData);
-
   const grossIncome =
     activeData[0].basic + activeData[0].hra + activeData[0].allowances;
   const grossDeduction =
     activeData[0].pf + activeData[0].incomeTax + activeData[0].insurance;
+
+  const series = [grossDeduction, grossIncome];
+  const sliceColor = ["#FFA84A", "#9B88ED"];
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <ScrollView>
