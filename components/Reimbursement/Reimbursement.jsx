@@ -29,6 +29,15 @@ const Reimbursement = ({ navigation }) => {
       reimbursement: state.reimbursement,
     };
   });
+  const approvedData = reimbursement.reimbursementList.filter(
+    (item) => item.status === "Approved"
+  );
+  const rejectedData = reimbursement.reimbursementList.filter(
+    (item) => item.status === "Rejected"
+  );
+  const pendingData = reimbursement.reimbursementList.filter(
+    (item) => item.status === "Pending"
+  );
   const reversedData = reimbursement.reimbursementList.slice(0).reverse();
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -39,7 +48,7 @@ const Reimbursement = ({ navigation }) => {
               <HStack space={3} justifyContent="space-between">
                 <View style={styles.stat}>
                   <Text style={styles.statNum} fontSize={24} color={"#11CD51"}>
-                    15
+                    {approvedData.length}
                   </Text>
                   <Text fontSize={14} color={COLORS.textPrimary}>
                     Approved
@@ -47,7 +56,7 @@ const Reimbursement = ({ navigation }) => {
                 </View>
                 <View style={styles.stat}>
                   <Text style={styles.statNum} fontSize={24} color={"#FF380D"}>
-                    10{" "}
+                    {rejectedData.length}
                   </Text>
                   <Text fontSize={14} color={COLORS.textPrimary}>
                     Rejected
@@ -55,7 +64,7 @@ const Reimbursement = ({ navigation }) => {
                 </View>
                 <View style={styles.stat}>
                   <Text style={styles.statNum} fontSize={24} color={"#FF9900"}>
-                    15
+                    {pendingData.length}
                   </Text>
                   <Text fontSize={14} color={COLORS.textPrimary}>
                     Pending
@@ -63,7 +72,11 @@ const Reimbursement = ({ navigation }) => {
                 </View>
                 <View style={styles.stat}>
                   <Text style={styles.statNum} fontSize={24} color={"#9B88ED"}>
-                    $405.00
+                    $
+                    {approvedData.reduce(
+                      (total, item) => total + parseFloat(item.amount),
+                      0
+                    )}
                   </Text>
                   <Text fontSize={14} color={COLORS.textPrimary}>
                     Receivable
@@ -113,7 +126,7 @@ const Reimbursement = ({ navigation }) => {
                   >
                     {moment(item.date).format("DD/MM/YYYY")}
                   </Text>
-                  <Text color="coolGray.800">{item.category}</Text>
+                  <Text color="coolGray.800">{item.reimbursementType}</Text>
                   <Text color="coolGray.800">{item.amount}</Text>
                   <StatusButton status={item.status} />
                 </HStack>

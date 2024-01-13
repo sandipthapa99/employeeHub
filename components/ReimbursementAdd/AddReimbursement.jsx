@@ -19,6 +19,7 @@ import {
   TextArea,
   Text,
   IconButton,
+  Input,
 } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
 import SelectDropdown from "react-native-select-dropdown";
@@ -54,6 +55,7 @@ const AddReimbursement = ({ navigation }) => {
     reimbursementType: reimbursementTypes[0],
     applyTo: Supervisors[0],
     recommendedBy: Supervisors[0],
+    amount: "",
     description: "",
     status: "Pending",
   });
@@ -66,10 +68,14 @@ const AddReimbursement = ({ navigation }) => {
       "Success",
       "Leave application has been submitted successfully!"
     );
+    console.log(formData);
     navigation.navigate("Reimbursement");
   };
   const validate = () => {
-    if (formData.description == "") {
+    if (formData.amount == "") {
+      setErrors({ ...errors, amount: "Amount is required" });
+      return false;
+    } else if (formData.description == "") {
       setErrors({ ...errors, description: "Description is required" });
       return false;
     } else if (!image) {
@@ -87,8 +93,6 @@ const AddReimbursement = ({ navigation }) => {
       aspect: [4, 3],
       quality: 1,
     });
-
-    console.log(result);
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
@@ -208,6 +212,31 @@ const AddReimbursement = ({ navigation }) => {
             </Text> */}
             </HStack>
             <View style={{ marginTop: 4 }}>
+              <FormControl isRequired isInvalid={"amount" in errors}>
+                <FormControl.Label style={{ fontFamily: FONT.bold }}>
+                  Amount:
+                </FormControl.Label>
+                <Input
+                  onChangeText={(text) =>
+                    setFormData({
+                      ...formData,
+                      amount: text,
+                    })
+                  }
+                  keyboardType="numeric"
+                  placeholder="Amount"
+                  style={{
+                    fontFamily: "Poppins-Regular",
+                  }}
+                />
+                {"amount" in errors ? (
+                  <FormControl.ErrorMessage mt={0}>
+                    Amount is Required.
+                  </FormControl.ErrorMessage>
+                ) : (
+                  ""
+                )}
+              </FormControl>
               <FormControl isRequired isInvalid={"description" in errors}>
                 <FormControl.Label style={{ fontFamily: FONT.bold }}>
                   <Text fontFamily={FONT.medium}>Description:</Text>
