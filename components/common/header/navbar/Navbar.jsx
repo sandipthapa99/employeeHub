@@ -50,15 +50,15 @@ const Navbar = ({ navigation, page }) => {
         <Notification stroke={page === "Leave" ? COLORS.textPrimary : "#fff"} />
       ),
     },
-    {
-      id: 5,
-      title: "Notifications",
-      icon: (
-        <LeaveSmall
-          stroke={page === "Notifications" ? COLORS.textPrimary : "#fff"}
-        />
-      ),
-    },
+    // {
+    //   id: 5,
+    //   title: "Notifications",
+    //   icon: (
+    //     <LeaveSmall
+    //       stroke={page === "Notifications" ? COLORS.textPrimary : "#fff"}
+    //     />
+    //   ),
+    // },
   ];
   return (
     <View style={styles.container}>

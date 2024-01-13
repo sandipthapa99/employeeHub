@@ -36,7 +36,6 @@ const Payslip = ({ navigation }) => {
     setActiveData(data);
   }, [selectedDate]);
   const [loading, setLoading] = useState(false);
-  console.log(loading);
 
   const grossIncome =
     activeData[0].basic + activeData[0].hra + activeData[0].allowances;

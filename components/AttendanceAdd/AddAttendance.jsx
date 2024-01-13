@@ -35,8 +35,6 @@ const AddAttendance = () => {
   });
   const dispatch = useDispatch();
   const handleSubmit = (isSignIn) => {
-    console.log(signIn);
-    console.log(formData);
     dispatch(addAttendance(formData));
   };
   return (

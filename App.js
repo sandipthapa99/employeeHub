@@ -7,7 +7,7 @@ import Login from "./components/Login/Login";
 import { NativeBaseProvider, extendTheme } from "native-base";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Profile from "./components/Dashboard/Profile";
+import Profile from "./components/Profile/Profile";
 import Dashboard from "./components/Dashboard/Dashboard";
 import { COLORS, icons, images } from "./constants";
 import ScreenHeaderBtn from "./components/common/header/ScreenHeaderBtn";
@@ -182,7 +182,15 @@ export default function App() {
               }}
             />
             <Stack.Screen name="Notifications" component={Notification} />
-            <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen
+              name="Profile"
+              component={Profile}
+              options={{
+                headerShown: false,
+                headerTitle: "",
+                headerShadowVisible: false,
+              }}
+            />
           </Stack.Navigator>
           {/* <Login /> */}
         </NavigationContainer>
