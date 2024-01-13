@@ -1,25 +1,46 @@
 import React, { useState } from "react";
-import { SafeAreaView, ScrollView, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import styles from "./addReimbursement.style";
 import { COLORS, FONT } from "../../constants";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { applyLeave } from "../Leave/leaveSlice";
-import { Button, FormControl, HStack, Icon, TextArea, Text } from "native-base";
+import {
+  Button,
+  FormControl,
+  HStack,
+  Icon,
+  TextArea,
+  Text,
+  IconButton,
+} from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
 import SelectDropdown from "react-native-select-dropdown";
+import { showToast } from "../../utils";
+import { applyReimbursement } from "../Reimbursement/reimbursementSlice";
+import * as ImagePicker from "expo-image-picker";
 
-const AddReimbursement = () => {
+const AddReimbursement = ({ navigation }) => {
   const today = moment();
   const [showModal, setShowModal] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState(today);
   const [choosedDate, setChoosedDate] = useState(today);
   const [errors, setErrors] = useState({});
+  const [error, setError] = useState(null);
+  const [file, setFile] = useState(null);
+  const [image, setImage] = useState(null);
+  console.log(file);
 
   var leaveDate = moment(selectedDate).format("YYYY-MM-DD dddd");
 
-  const leaveTypes = ["Annual", "Compensation", "Sick Leave"];
+  const reimbursementTypes = ["Team Lunch", "Cab Fair", "Client Meet"];
   const Supervisors = [
     "Charlotte Cloe",
     "James Oliver",
@@ -29,75 +50,68 @@ const AddReimbursement = () => {
     "Peter Quill",
   ];
   const [formData, setFormData] = useState({
-    leaveDate: choosedDate.toISOString(),
-    leaveType: leaveTypes[0],
+    date: choosedDate.toISOString(),
+    reimbursementType: reimbursementTypes[0],
     applyTo: Supervisors[0],
     recommendedBy: Supervisors[0],
-    halfDay: false,
-    reason: "",
+    description: "",
     status: "Pending",
   });
 
-  const onDateChange = (date) => {
-    setChoosedDate(date);
-  };
   const dispatch = useDispatch();
   const handleSubmit = () => {
-    dispatch(applyLeave(formData));
+    dispatch(applyReimbursement(formData));
     showToast(
       "success",
       "Success",
       "Leave application has been submitted successfully!"
     );
-    //   navigation.navigate("Leave");
+    navigation.navigate("Reimbursement");
   };
   const validate = () => {
-    if (formData.reason == "") {
-      setErrors({ ...errors, reason: "Reason is required" });
+    if (formData.description == "") {
+      setErrors({ ...errors, description: "Description is required" });
+      return false;
+    } else if (!image) {
+      setErrors({ ...errors, image: "Image is required" });
       return false;
     }
     return true;
+  };
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
   };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.formWrapper}>
-            <TouchableOpacity
-              onPress={() => setShowModal(true)}
-              activeOpacity={0.6}
-            >
-              <HStack justifyContent="space-between">
-                <View style={styles.date}>
-                  <Icon
-                    as={<MaterialIcons name="today" />}
-                    size={5}
-                    color="muted.800"
-                  />
-                  <Text ml={2} style={styles.date}>
-                    {leaveDate}
-                  </Text>
-                </View>
-
-                <Icon
-                  as={<MaterialIcons name="add-circle-outline" />}
-                  size={5}
-                  ml="2"
-                  color="muted.800"
-                />
-              </HStack>
-            </TouchableOpacity>
-
             <HStack space={[2, 3]} justifyContent="space-between" mt={2}>
-              <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
+              <Text color={COLORS.textPrimary} fontFamily={FONT.medium}>
                 Reimbursement Type:
               </Text>
               <SelectDropdown
-                data={leaveTypes}
+                data={reimbursementTypes}
                 onSelect={(selectedItem, index) => {
-                  setFormData({ ...formData, leaveType: selectedItem });
+                  setFormData({
+                    ...formData,
+                    reimbursementType: selectedItem,
+                  });
                 }}
-                defaultButtonText={leaveTypes[0]}
+                defaultButtonText={reimbursementTypes[0]}
                 buttonTextAfterSelection={(selectedItem, index) => {
                   return selectedItem;
                 }}
@@ -122,7 +136,7 @@ const AddReimbursement = () => {
               />
             </HStack>
             <HStack space={[2, 3]} justifyContent="space-between" mt={3}>
-              <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
+              <Text color={COLORS.textPrimary} fontFamily={FONT.medium}>
                 Apply To:
               </Text>
               <SelectDropdown
@@ -153,12 +167,12 @@ const AddReimbursement = () => {
                 rowStyle={styles.dropdown1RowStyle}
                 rowTextStyle={styles.dropdown1RowTxtStyle}
               />
-              {/* <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
+              {/* <Text color={COLORS.textPrimary} fontFamily={FONT.medium}>
               Status
             </Text> */}
             </HStack>
             <HStack space={[2, 3]} justifyContent="space-between" mt={3}>
-              <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
+              <Text color={COLORS.textPrimary} fontFamily={FONT.medium}>
                 Recommended By:
               </Text>
               <SelectDropdown
@@ -193,25 +207,72 @@ const AddReimbursement = () => {
               Status
             </Text> */}
             </HStack>
-            <View style={{ marginTop: 3 }}>
-              <Text>Description:</Text>
-              <FormControl isRequired isInvalid={"reason" in errors}>
+            <View style={{ marginTop: 4 }}>
+              <FormControl isRequired isInvalid={"description" in errors}>
+                <FormControl.Label style={{ fontFamily: FONT.bold }}>
+                  <Text fontFamily={FONT.medium}>Description:</Text>
+                </FormControl.Label>
                 <TextArea
-                  w={"95%"}
+                  w={"100%"}
                   h={20}
                   placeholder="Description..."
                   onChangeText={(text) =>
-                    setFormData({ ...formData, reason: text })
+                    setFormData({ ...formData, description: text })
                   }
+                  borderColor={"description" in errors ? "red.400" : "gray.300"}
                 />
-                {"reason" in errors ? (
-                  <FormControl.ErrorMessage>
-                    Please specify the reason!
+                {"description" in errors ? (
+                  <FormControl.ErrorMessage mb={3} mt={0}>
+                    Description is required.
                   </FormControl.ErrorMessage>
                 ) : (
                   ""
                 )}
               </FormControl>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <FormControl isRequired isInvalid={"image" in errors}>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  width={"100%"}
+                  borderStyle={"dashed"}
+                  borderColor={"image" in errors ? "red.400" : "gray.300"}
+                  fontSize={16}
+                  leftIcon={
+                    <Icon
+                      as={<MaterialIcons name="arrow-circle-up" />}
+                      size={5}
+                      ml="2"
+                      color="blue.400"
+                    />
+                  }
+                  onPress={pickImage}
+                >
+                  Click here to upload file
+                </Button>
+                {"image" in errors ? (
+                  <FormControl.ErrorMessage mb={3} mt={0}>
+                    Image is required.
+                  </FormControl.ErrorMessage>
+                ) : (
+                  ""
+                )}
+              </FormControl>
+
+              {image && (
+                <Image
+                  source={{ uri: image }}
+                  style={{ width: "100%", height: 200, borderRadius: 8 }}
+                />
+              )}
             </View>
           </View>
           <Button
