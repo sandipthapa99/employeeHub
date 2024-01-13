@@ -124,7 +124,17 @@ export default function App() {
             />
             <Stack.Screen name="Late/Early" component={LateEarly} />
             <Stack.Screen name="Birthday" component={Birthday} />
-            <Stack.Screen name="Payslip" component={Payslip} />
+            <Stack.Screen
+              name="Payslip"
+              component={Payslip}
+              options={{
+                headerTitle: "Payslip",
+                headerShadowVisible: false,
+                headerStyle: {
+                  backgroundColor: COLORS.lightWhite,
+                },
+              }}
+            />
             <Stack.Screen
               name="Leave"
               component={Leave}
