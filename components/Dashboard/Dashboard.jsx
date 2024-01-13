@@ -42,11 +42,11 @@ const Dashboard = ({ navigation }) => {
       title: "Attendance",
       icon: <Attendance />,
     },
-    {
-      id: 2,
-      title: "Late/Early",
-      icon: <LateEarly />,
-    },
+    // {
+    //   id: 2,
+    //   title: "Late/Early",
+    //   icon: <LateEarly />,
+    // },
     {
       id: 3,
       title: "Birthday",
