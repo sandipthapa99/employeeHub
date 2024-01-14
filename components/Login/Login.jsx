@@ -27,10 +27,10 @@ const Login = ({ navigation }) => {
   });
 
   const validate = () => {
-    if (formData.email !== "Test") {
+    if (formData.email !== "olaiza@gmail.com") {
       setErrors({ ...errors, email: "Invalid Credentials" });
       return false;
-    } else if (formData.password !== "Test") {
+    } else if (formData.password !== "olaiza123") {
       setErrors({ ...errors, email: "Invalid Credentials" });
       return false;
     }
@@ -128,10 +128,9 @@ const Login = ({ navigation }) => {
             width={"80%"}
             style={{ backgroundColor: COLORS.primary }}
             onPress={() => {
-              navigation.navigate("Dashboard");
-              // validate()
-              //   ? navigation.navigate("Dashboard")
-              //   : console.log("Login Failed");
+              validate()
+                ? navigation.navigate("Dashboard")
+                : console.log("Login Failed");
             }}
           >
             LOGIN

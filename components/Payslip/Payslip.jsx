@@ -129,7 +129,7 @@ const Payslip = ({ navigation }) => {
                       alignItems="center"
                       justifyContent={"center"}
                     >
-                      <Text>${grossIncome}</Text>
+                      <Text fontFamily={FONT.semiBold}>${grossIncome}</Text>
                       <Text>Gross Pay</Text>
                     </VStack>
                   </View>
