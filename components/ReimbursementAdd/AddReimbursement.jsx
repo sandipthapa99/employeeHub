@@ -36,7 +36,6 @@ const AddReimbursement = ({ navigation }) => {
   const [error, setError] = useState(null);
   const [file, setFile] = useState(null);
   const [image, setImage] = useState(null);
-  console.log(file);
 
   var leaveDate = moment(selectedDate).format("YYYY-MM-DD dddd");
 
@@ -87,8 +86,6 @@ const AddReimbursement = ({ navigation }) => {
       aspect: [4, 3],
       quality: 1,
     });
-
-    console.log(result);
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);

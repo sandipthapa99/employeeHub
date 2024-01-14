@@ -47,11 +47,11 @@ const Dashboard = ({ navigation }) => {
     //   title: "Late/Early",
     //   icon: <LateEarly />,
     // },
-    {
-      id: 3,
-      title: "Birthday",
-      icon: <Birthday />,
-    },
+    // {
+    //   id: 3,
+    //   title: "Birthday",
+    //   icon: <Birthday />,
+    // },
     {
       id: 4,
       title: "Payslip",
@@ -62,16 +62,16 @@ const Dashboard = ({ navigation }) => {
       title: "Leave",
       icon: <Leave />,
     },
-    {
-      id: 6,
-      title: "Employees",
-      icon: <Employees />,
-    },
-    {
-      id: 7,
-      title: "Settings",
-      icon: <Settings />,
-    },
+    // {
+    //   id: 6,
+    //   title: "Employees",
+    //   icon: <Employees />,
+    // },
+    // {
+    //   id: 7,
+    //   title: "Settings",
+    //   icon: <Settings />,
+    // },
     {
       id: 8,
       title: "Reimbursement",
