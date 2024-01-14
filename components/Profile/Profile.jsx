@@ -95,7 +95,7 @@ const renderScene = SceneMap({
   third: ThirdRoute,
 });
 
-const Profile = ({ navigation }) => {
+const Profile = () => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {
@@ -116,16 +116,9 @@ const Profile = ({ navigation }) => {
   ]);
 
   const renderTabBar = (props) => {
-    const inputRange = props.navigationState.routes.map((x, i) => i);
     return (
       <Box flexDirection="row" width={"100%"}>
         {props.navigationState.routes.map((route, i) => {
-          const opacity = props.position.interpolate({
-            inputRange,
-            outputRange: inputRange.map((inputIndex) =>
-              inputIndex === i ? 1 : 0.5
-            ),
-          });
           const color =
             index === i
               ? useColorModeValue(COLORS.primary, "#e5e5e5")
@@ -141,8 +134,6 @@ const Profile = ({ navigation }) => {
               flex={1}
               alignItems="center"
               justifyContent={"center"}
-              p="3"
-              cursor="pointer"
               key={i}
             >
               <Pressable
@@ -153,10 +144,10 @@ const Profile = ({ navigation }) => {
                 <Center>
                   <Icon as={route.icon} size={5} color={color} />
                   <Text
+                    fontFamily={FONT.medium}
+                    mt={2}
                     style={{
                       color,
-                      fontFamily: FONT.medium,
-                      marginTop: 6,
                     }}
                   >
                     {route.title}
@@ -172,7 +163,7 @@ const Profile = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
       <View style={styles.bg}>
-        <View style={styles.top}></View>
+        <View style={styles.top} />
         <View style={styles.bottom}>
           <View style={styles.profile}>
             <Image
