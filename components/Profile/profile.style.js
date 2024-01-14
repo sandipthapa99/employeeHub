@@ -1,6 +1,6 @@
 import Constants from "expo-constants";
 import { Dimensions, StyleSheet } from "react-native";
-import { FONT } from "../../constants";
+import { COLORS, FONT } from "../../constants";
 
 const screen = Dimensions.get("screen");
 
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   top: {
     backgroundColor: "#EBF0F0",
     width: screen.width * 2,
-    height: screen.width * 2.2,
+    height: screen.width * 2,
     bottom: screen.height - screen.height * 0.3,
     borderRadius: screen.width,
     left: -200,
@@ -36,6 +36,16 @@ const styles = StyleSheet.create({
     height: screen.height - 300,
     alignItems: "center",
     bottom: screen.height - screen.height * 0.3,
+  },
+  tabContentLeft: {
+    fontFamily: FONT.semiBold,
+    fontSize: 16,
+    color: COLORS.textPrimary,
+  },
+  tabContentRight: {
+    fontFamily: FONT.regular,
+    fontSize: 16,
+    color: COLORS.textPrimary,
   },
 });
 
