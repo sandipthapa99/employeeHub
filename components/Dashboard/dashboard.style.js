@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 18,
+    marginTop: -12,
   },
   headerLeft: {
     fontSize: SIZES.large,
