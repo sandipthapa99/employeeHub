@@ -15,6 +15,8 @@ const AddAttendance = () => {
   const today = moment();
   const onDateChange = (date) => {};
   const [signIn, setSignIn] = useState(true);
+  const [signInForToday, setSignInForToday] = useState(false);
+  const [signOutForToday, setSignOutForToday] = useState(false);
   const attendanceType = ["Sign In", "Sign Out"];
   const dayTypes = ["Working", "Leave", "Weekend"];
   const Supervisors = [
@@ -133,6 +135,9 @@ const AddAttendance = () => {
               <View style={{ flex: 1, position: "relative" }}>
                 <Button
                   onPress={() => {
+                    if (signIn) {
+                      setSignInForToday(true);
+                    }
                     handleSubmit(signIn);
                     setShowModal(true);
                   }}
