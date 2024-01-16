@@ -6,8 +6,10 @@ const screen = Dimensions.get("screen");
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Constants.statusBarHeight,
+    // paddingTop: Constants.statusBarHeight,
     backgroundColor: "#fff",
+    paddingLeft: SIZES.xLarge,
+    paddingRight: SIZES.xLarge,
   },
   top: {
     backgroundColor: "#EBF0F0",
@@ -47,22 +49,24 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: COLORS.textPrimary,
   },
+  line: {
+    borderBottomWidth: 2,
+    borderBottomColor: COLORS.gray2,
+  },
   tabsContainer: {
     width: "100%",
-    marginTop: SIZES.medium,
-    // borderBottomWidth: 2,
-    borderBottomColor: "#C0C6D0",
+    marginTop: 42,
+    // backgroundColor: "#f00",
   },
   tab: (activeTab, item) => ({
     paddingVertical: SIZES.small / 2,
     paddingHorizontal: SIZES.small,
-    // borderRadius: SIZES.medium,
     borderBottomWidth: activeTab === item ? 2 : 0,
     borderBottomColor: activeTab === item ? COLORS.primary : COLORS.gray2,
   }),
   tabText: (activeTab, item) => ({
     fontFamily: FONT.medium,
-    color: activeTab === item ? COLORS.primary : COLORS.gray2,
+    color: activeTab === item ? COLORS.primary : COLORS.textPrimary,
   }),
 });
 

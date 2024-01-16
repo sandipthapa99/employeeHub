@@ -181,7 +181,7 @@ const Profile = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <View style={styles.bg}>
+      <View style={styles.container}>
         <View style={styles.top} />
         <View style={styles.bottom}>
           <View style={styles.profile}>
@@ -205,30 +205,17 @@ const Profile = () => {
               </Text>
             </VStack>
           </View>
-          {/* <TabView
-            navigationState={{
-              index,
-              routes,
-            }}
-            renderScene={renderScene}
-            renderTabBar={renderTabBar}
-            onIndexChange={setIndex}
-            initialLayout={initialLayout}
-            style={{
-              marginTop: StatusBar.currentHeight,
-            }}
-          /> */}
           <View style={styles.tabsContainer}>
-            <HStack space={[2, 3]} justifyContent="space-between">
-              <FlatList
-                data={tabs}
-                renderItem={({ item }) => (
+            <View>
+              <HStack space={[2, 3]} justifyContent="space-between" zIndex={2}>
+                {tabs.map((item) => (
                   <TouchableOpacity
                     style={styles.tab(activeTab, item.title)}
                     onPress={() => {
                       setActiveTab(item.title);
-                      // router.push(`/search/${item}`);
                     }}
+                    key={item.title}
+                    activeOpacity={0.8}
                   >
                     <Center>
                       <Icon
@@ -237,7 +224,7 @@ const Profile = () => {
                         color={
                           activeTab === item.title
                             ? COLORS.primary
-                            : COLORS.gray
+                            : COLORS.textPrimary
                         }
                       />
                       <Text style={styles.tabText(activeTab, item.title)}>
@@ -245,50 +232,34 @@ const Profile = () => {
                       </Text>
                     </Center>
                   </TouchableOpacity>
-                )}
-                keyExtractor={(item) => item.title}
-                contentContainerStyle={{ columnGap: SIZES.small }}
-                horizontal
+                ))}
+              </HStack>
+              <View
+                style={{
+                  borderBottomColor: "#C0C6D0",
+                  borderBottomWidth: 2,
+                  bottom: 2,
+                }}
               />
-            </HStack>
+            </View>
 
             {activeTab === "Basic Info" && (
               <View>
-                <HStack
-                  space={[2, 3]}
-                  justifyContent="space-between"
-                  mt={6}
-                  paddingX={6}
-                >
+                <HStack space={[2, 3]} justifyContent="space-between" mt={6}>
                   <Text style={styles.tabContentLeft}>Date of Birth</Text>
                   <Text style={styles.tabContentRight}>23 August 1990</Text>
                 </HStack>
-                <HStack
-                  space={[2, 3]}
-                  justifyContent="space-between"
-                  mt={4}
-                  paddingX={6}
-                >
+                <HStack space={[2, 3]} justifyContent="space-between" mt={4}>
                   <Text style={styles.tabContentLeft}>Gender</Text>
                   <Text style={styles.tabContentRight}>Male</Text>
                 </HStack>
 
-                <HStack
-                  space={[2, 3]}
-                  justifyContent="space-between"
-                  mt={4}
-                  paddingX={6}
-                >
+                <HStack space={[2, 3]} justifyContent="space-between" mt={4}>
                   <Text style={styles.tabContentLeft}>Marital Status</Text>
                   <Text style={styles.tabContentRight}>Unmarried</Text>
                 </HStack>
 
-                <HStack
-                  space={[2, 3]}
-                  justifyContent="space-between"
-                  mt={4}
-                  paddingX={6}
-                >
+                <HStack space={[2, 3]} justifyContent="space-between" mt={4}>
                   <Text style={styles.tabContentLeft}>Address</Text>
 
                   <Text style={styles.tabContentRight}>
@@ -299,21 +270,11 @@ const Profile = () => {
             )}
             {activeTab === "Job Status" && (
               <View>
-                <HStack
-                  space={[2, 3]}
-                  justifyContent="space-between"
-                  mt={6}
-                  paddingX={6}
-                >
+                <HStack space={[2, 3]} justifyContent="space-between" mt={6}>
                   <Text style={styles.tabContentLeft}>Joined Date</Text>
                   <Text style={styles.tabContentRight}>25 Dec 2022</Text>
                 </HStack>
-                <HStack
-                  space={[2, 3]}
-                  justifyContent="space-between"
-                  mt={4}
-                  paddingX={6}
-                >
+                <HStack space={[2, 3]} justifyContent="space-between" mt={4}>
                   <Text style={styles.tabContentLeft}>Working Hours</Text>
                   <VStack
                     space={[2, 3]}
@@ -324,12 +285,7 @@ const Profile = () => {
                     <Text style={styles.tabContentRight}>9:00 - 19:00</Text>
                   </VStack>
                 </HStack>
-                <HStack
-                  space={[2, 3]}
-                  justifyContent="space-between"
-                  mt={4}
-                  paddingX={6}
-                >
+                <HStack space={[2, 3]} justifyContent="space-between" mt={4}>
                   <Text style={styles.tabContentLeft}>Overtime</Text>
                   <Text style={styles.tabContentRight}>N/A</Text>
                 </HStack>
@@ -337,30 +293,15 @@ const Profile = () => {
             )}
             {activeTab === "Official Details" && (
               <View>
-                <HStack
-                  space={[2, 3]}
-                  justifyContent="space-between"
-                  mt={6}
-                  paddingX={6}
-                >
+                <HStack space={[2, 3]} justifyContent="space-between" mt={6}>
                   <Text style={styles.tabContentLeft}>Organization</Text>
                   <Text style={styles.tabContentRight}>KFC</Text>
                 </HStack>
-                <HStack
-                  space={[2, 3]}
-                  justifyContent="space-between"
-                  mt={4}
-                  paddingX={6}
-                >
+                <HStack space={[2, 3]} justifyContent="space-between" mt={4}>
                   <Text style={styles.tabContentLeft}>Branch</Text>
                   <Text style={styles.tabContentRight}>New South Wales</Text>
                 </HStack>
-                <HStack
-                  space={[2, 3]}
-                  justifyContent="space-between"
-                  mt={4}
-                  paddingX={6}
-                >
+                <HStack space={[2, 3]} justifyContent="space-between" mt={4}>
                   <Text style={styles.tabContentLeft}>Department</Text>
                   <Text style={styles.tabContentRight}>IT Manager</Text>
                 </HStack>
