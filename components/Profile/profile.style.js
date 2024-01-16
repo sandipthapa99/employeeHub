@@ -1,6 +1,6 @@
 import Constants from "expo-constants";
 import { Dimensions, StyleSheet } from "react-native";
-import { COLORS, FONT } from "../../constants";
+import { COLORS, FONT, SIZES } from "../../constants";
 
 const screen = Dimensions.get("screen");
 
@@ -47,6 +47,23 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: COLORS.textPrimary,
   },
+  tabsContainer: {
+    width: "100%",
+    marginTop: SIZES.medium,
+    // borderBottomWidth: 2,
+    borderBottomColor: "#C0C6D0",
+  },
+  tab: (activeTab, item) => ({
+    paddingVertical: SIZES.small / 2,
+    paddingHorizontal: SIZES.small,
+    // borderRadius: SIZES.medium,
+    borderBottomWidth: activeTab === item ? 2 : 0,
+    borderBottomColor: activeTab === item ? COLORS.primary : COLORS.gray2,
+  }),
+  tabText: (activeTab, item) => ({
+    fontFamily: FONT.medium,
+    color: activeTab === item ? COLORS.primary : COLORS.gray2,
+  }),
 });
 
 export default styles;
