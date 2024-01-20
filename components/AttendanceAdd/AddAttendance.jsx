@@ -32,7 +32,7 @@ const AddAttendance = () => {
     date: today.toISOString(),
     dayType: dayTypes[0],
     workedHour: "",
-    in: "",
+    in: signIn ? moment(today).format("LT") : "",
     out: "",
   });
   const dispatch = useDispatch();
@@ -103,6 +103,7 @@ const AddAttendance = () => {
                       setSignIn(false);
                       setFormData({
                         ...formData,
+                        in: "",
                         out: moment(today).format("LT"),
                       });
                     }
@@ -135,9 +136,6 @@ const AddAttendance = () => {
               <View style={{ flex: 1, position: "relative" }}>
                 <Button
                   onPress={() => {
-                    if (signIn) {
-                      setSignInForToday(true);
-                    }
                     handleSubmit(signIn);
                     setShowModal(true);
                   }}
