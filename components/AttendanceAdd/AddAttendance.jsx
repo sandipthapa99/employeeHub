@@ -17,7 +17,7 @@ const AddAttendance = () => {
   const [signIn, setSignIn] = useState(true);
   const [signInForToday, setSignInForToday] = useState(false);
   const [signOutForToday, setSignOutForToday] = useState(false);
-  const attendanceType = ["Sign In", "Sign Out"];
+  const attendanceType = ["Time In", "Time Out"];
   const dayTypes = ["Working", "Leave", "Weekend"];
   const Supervisors = [
     "Charlotte Cloe",
@@ -93,7 +93,7 @@ const AddAttendance = () => {
                 <SelectDropdown
                   data={attendanceType}
                   onSelect={(selectedItem, index) => {
-                    if (selectedItem === "Sign In") {
+                    if (selectedItem === "Time In") {
                       setSignIn(true);
                       setFormData({
                         ...formData,
@@ -165,7 +165,7 @@ const AddAttendance = () => {
                   Attendance Recorded
                 </Text>
                 <Text>
-                  {signIn ? "Check in" : "Check out"} at:{" "}
+                  {signIn ? "Time in" : "Time out"} at:{" "}
                   {moment(today).format("LT")}
                 </Text>
               </Center>

@@ -3,7 +3,7 @@ import { COLORS, FONT } from "../../../constants";
 
 const styles = StyleSheet.create({
   container: (status) => ({
-    width: 72,
+    width: 80,
     backgroundColor:
       status === "Approved"
         ? "#1ECC45"
