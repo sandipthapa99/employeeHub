@@ -32,7 +32,7 @@ const AddAttendance = () => {
     date: today.toISOString(),
     dayType: dayTypes[0],
     workedHour: "",
-    in: moment(today).format("LT"),
+    in: "",
     out: "",
   });
   const dispatch = useDispatch();
