@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   grid: {
-    width: 100 / 4 + "%",
+    width: 100 / 5 + "%",
     alignItems: "center",
     justifyContent: "center",
   },

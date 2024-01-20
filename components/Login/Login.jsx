@@ -128,10 +128,10 @@ const Login = ({ navigation }) => {
             width={"80%"}
             style={{ backgroundColor: COLORS.primary }}
             onPress={() => {
-              // navigation.navigate("Dashboard");
-              validate()
-                ? navigation.navigate("Dashboard")
-                : console.log("Login Failed");
+              navigation.navigate("Dashboard");
+              // validate()
+              //   ? navigation.navigate("Dashboard")
+              //   : console.log("Login Failed");
             }}
           >
             LOGIN
