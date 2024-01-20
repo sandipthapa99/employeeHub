@@ -26,7 +26,7 @@ import {
   Settings,
 } from "../../assets/svgs";
 import Navbar from "../common/header/navbar/Navbar";
-import { Dropdown, SelectCountry } from "react-native-element-dropdown";
+import SelectDropdown from "react-native-select-dropdown";
 
 const Dashboard = ({ navigation }) => {
   const { width } = Dimensions.get("window");
@@ -87,10 +87,7 @@ const Dashboard = ({ navigation }) => {
     },
   ];
   const date = new Date();
-  const data = [
-    { label: "KFC", value: "KFC" },
-    // { label: "PizzaHut", value: "PizzaHut" },
-  ];
+  const data = ["ABC Organization"];
   const [value, setValue] = useState(data[0].value);
 
   return (
@@ -104,24 +101,36 @@ const Dashboard = ({ navigation }) => {
               activeOpacity={0.6}
             >
               <ScreenHeaderBtn iconUrl={images.user} dimension={"100%"} />
-              <Text style={styles.username}>John Doe</Text>
+              <Text style={styles.username}>Olaiza Edades</Text>
             </TouchableOpacity>
             {/* <Text style={styles.headerRight}>KFC</Text> */}
-            <Dropdown
-              style={styles.dropdown}
-              placeholderStyle={styles.placeholderStyle}
-              selectedTextStyle={styles.selectedTextStyle}
-              itemContainerStyle={styles.itemContainerStyle}
-              itemTextStyle={styles.itemTextStyle}
+            <SelectDropdown
               data={data}
-              maxHeight={300}
-              labelField="label"
-              valueField="value"
-              placeholder="Select Organization"
-              value={value}
-              onChange={(item) => {
-                setValue(item.value);
+              onSelect={(selectedItem, index) => {
+                //   setFormData({ ...formData, leaveType: selectedItem });
               }}
+              defaultButtonText={data[0]}
+              buttonTextAfterSelection={(selectedItem, index) => {
+                return selectedItem;
+              }}
+              rowTextForSelection={(item, index) => {
+                return item;
+              }}
+              buttonStyle={styles.dropdown1BtnStyle}
+              buttonTextStyle={styles.dropdown1BtnTxtStyle}
+              renderDropdownIcon={(isOpened) => {
+                return (
+                  <MaterialIcons
+                    name={isOpened ? "expand-less" : "expand-more"}
+                    color={"#444"}
+                    size={18}
+                  />
+                );
+              }}
+              dropdownIconPosition={"right"}
+              dropdownStyle={styles.dropdown1DropdownStyle}
+              rowStyle={styles.dropdown1RowStyle}
+              rowTextStyle={styles.dropdown1RowTxtStyle}
             />
           </View>
           <View style={styles.upperDash}>
