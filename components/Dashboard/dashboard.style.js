@@ -79,15 +79,28 @@ const styles = StyleSheet.create({
   placeholderStyle: {
     fontSize: 16,
   },
-  selectedTextStyle: {
-    fontSize: 16,
-    fontFamily: FONT.regular,
-    color: COLORS.textPrimary,
+
+  dropdown1BtnStyle: {
+    width: 150,
+    height: 20,
+    // backgroundColor: "#FFF",
+    borderRadius: 8,
   },
-  itemContainerStyle: {},
-  itemTextStyle: {
+  dropdown1BtnTxtStyle: { color: "#444", textAlign: "right", fontSize: 12 },
+  dropdown1DropdownStyle: { backgroundColor: "#EFEFEF" },
+  dropdown1RowStyle: {
+    backgroundColor: "#EFEFEF",
+    borderBottomColor: "#C5C5C5",
+  },
+  dropdown1RowTxtStyle: {
+    color: "#444",
+    textAlign: "left",
     fontSize: 14,
     fontFamily: FONT.regular,
+  },
+  dropdown2BtnStyle: {
+    height: 45,
+    borderRadius: 4,
   },
 });
 

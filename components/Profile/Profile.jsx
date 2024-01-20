@@ -199,9 +199,9 @@ const Profile = () => {
           </View>
           <View style={styles.info}>
             <VStack space={0} alignItems="center" justifyContent={"center"}>
-              <Text style={styles.name}>John Doe</Text>
+              <Text style={styles.name}>Olaiza Edades</Text>
               <Text style={styles.contact}>
-                johndoe@gmail.com | +61478698970
+                olaizaedades@gmail.com | +61478698970
               </Text>
             </VStack>
           </View>
@@ -251,7 +251,7 @@ const Profile = () => {
                 </HStack>
                 <HStack space={[2, 3]} justifyContent="space-between" mt={4}>
                   <Text style={styles.tabContentLeft}>Gender</Text>
-                  <Text style={styles.tabContentRight}>Male</Text>
+                  <Text style={styles.tabContentRight}>Female</Text>
                 </HStack>
 
                 <HStack space={[2, 3]} justifyContent="space-between" mt={4}>
@@ -295,7 +295,7 @@ const Profile = () => {
               <View>
                 <HStack space={[2, 3]} justifyContent="space-between" mt={6}>
                   <Text style={styles.tabContentLeft}>Organization</Text>
-                  <Text style={styles.tabContentRight}>KFC</Text>
+                  <Text style={styles.tabContentRight}>ABC Organization</Text>
                 </HStack>
                 <HStack space={[2, 3]} justifyContent="space-between" mt={4}>
                   <Text style={styles.tabContentLeft}>Branch</Text>

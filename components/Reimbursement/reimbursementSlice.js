@@ -4,25 +4,25 @@ const initialState = {
   reimbursementList: [
     {
       date: "2023-10-28",
-      category: "Cab Fair",
-      amount: "123.15",
+      reimbursementType: "Cab Fair",
+      amount: "123",
       status: "Approved",
     },
     {
       date: "2023-11-28",
-      category: "Cab Fair",
+      reimbursementType: "Cab Fair",
       amount: "123.15",
       status: "Rejected",
     },
     {
       date: "2023-12-28",
-      category: "Team Meet",
+      reimbursementType: "Team Meet",
       amount: "123.15",
       status: "Pending",
     },
     {
       date: "2023-12-28",
-      category: "Team Lunch",
+      reimbursementType: "Team Lunch",
       amount: "100.00",
       status: "Pending",
     },

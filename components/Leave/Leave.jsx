@@ -26,15 +26,6 @@ import moment from "moment";
 
 const Leave = ({ navigation }) => {
   const date = new Date();
-  const data = [
-    {
-      id: 1,
-      date: "2023/12/12",
-      type: "Annual",
-      status: "Pending",
-    },
-  ];
-
   const { leave } = useSelector((state) => {
     return {
       leave: state.leave,
@@ -68,7 +59,11 @@ const Leave = ({ navigation }) => {
               </View>
               <View style={styles.stat}>
                 <Text style={styles.statNum} fontSize={24} color={"#FF380D"}>
-                  {data.filter((item) => item.status === "Approved").length}
+                  {
+                    leave.leaveApplications.filter(
+                      (item) => item.status === "Approved"
+                    ).length
+                  }
                 </Text>
                 <Text fontSize={14} color={COLORS.textPrimary}>
                   Used
@@ -77,7 +72,9 @@ const Leave = ({ navigation }) => {
               <View style={styles.stat}>
                 <Text style={styles.statNum} fontSize={24} color={"#FF9900"}>
                   {15 -
-                    data.filter((item) => item.status === "Approved").length}
+                    leave.leaveApplications.filter(
+                      (item) => item.status === "Approved"
+                    ).length}
                 </Text>
                 <Text fontSize={14} color={COLORS.textPrimary}>
                   Available
@@ -112,7 +109,7 @@ const Leave = ({ navigation }) => {
           <View style={styles.listContainer}>
             {reversedData.map((item, index) => (
               <Box
-                borderBottomWidth="1"
+                borderBottomWidth={index === reversedData.length - 1 ? 0 : "1"}
                 borderColor={COLORS.lightWhite}
                 py="2"
                 key={index}
@@ -120,82 +117,28 @@ const Leave = ({ navigation }) => {
                 <HStack
                   space={[2, 3]}
                   justifyContent="space-between"
+                  alignItems={"center"}
                   paddingX={4}
                 >
-                  <Text>{moment(item.leaveDate).format("DD/MM/YYYY")}</Text>
-                  <VStack>
-                    <Text
-                      _dark={{
-                        color: "warmGray.50",
-                      }}
-                      color="coolGray.800"
-                      bold
-                    >
-                      {item.leaveType}
-                    </Text>
-                  </VStack>
+                  <Text
+                    color={COLORS.textPrimary}
+                    fontFamily={FONT.regular}
+                    fontSize={12}
+                  >
+                    {moment(item.leaveDate).format("DD/MM/YYYY")}
+                  </Text>
+                  <Text
+                    color={COLORS.textPrimary}
+                    fontFamily={FONT.regular}
+                    fontSize={12}
+                  >
+                    {item.leaveType}
+                  </Text>
                   <StatusButton status={item.status} />
                 </HStack>
               </Box>
             ))}
-            <Box py="2">
-              <HStack
-                space={[2, 3]}
-                justifyContent="space-between"
-                paddingX={4}
-              >
-                <Text>{moment("2023-12-28").format("DD/MM/YYYY")}</Text>
-                <VStack>
-                  <Text
-                    _dark={{
-                      color: "warmGray.50",
-                    }}
-                    color="coolGray.800"
-                    bold
-                  >
-                    Test
-                  </Text>
-                </VStack>
-                <StatusButton status={"Approved"} />
-              </HStack>
-            </Box>
           </View>
-
-          {/* <FlatList
-            style={styles.listContainer}
-            data={leave.leaveApplications}
-            renderItem={({ item }) => (
-              <Box
-                borderBottomWidth="1"
-                _dark={{
-                  borderColor: "muted.50",
-                }}
-                borderColor={COLORS.lightWhite}
-                py="2"
-              >
-                <HStack
-                  space={[2, 3]}
-                  justifyContent="space-between"
-                  paddingX={4}
-                >
-                  <Text>{moment(item.leaveDate).format("DD/MM/YYYY")}</Text>
-                  <VStack>
-                    <Text
-                      _dark={{
-                        color: "warmGray.50",
-                      }}
-                      color="coolGray.800"
-                      bold
-                    >
-                      {item.leaveType}
-                    </Text>
-                  </VStack>
-                  <StatusButton status={item.status} />
-                </HStack>
-              </Box>
-            )}
-            keyExtractor={(item, index) => index}
-          /> */}
         </View>
       </ScrollView>
       <TouchableOpacity

@@ -26,9 +26,9 @@ const initialState = {
     {
       date: "2024-01-04",
       dayType: "Leave",
-      workedHour: "9hrs",
-      in: "08:58 AM",
-      out: "18:02 PM",
+      workedHour: "",
+      in: "",
+      out: "",
     },
     {
       date: "2024-01-05",
@@ -40,16 +40,16 @@ const initialState = {
     {
       date: "2024-01-06",
       dayType: "Weekend",
-      workedHour: "9hrs",
-      in: "08:58 AM",
-      out: "18:02 PM",
+      workedHour: "",
+      in: "",
+      out: "",
     },
     {
       date: "2024-01-07",
       dayType: "Weekend",
-      workedHour: "9hrs",
-      in: "08:58 AM",
-      out: "18:02 PM",
+      workedHour: "",
+      in: "",
+      out: "",
     },
     {
       date: "2023-01-01",

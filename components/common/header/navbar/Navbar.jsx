@@ -50,15 +50,15 @@ const Navbar = ({ navigation, page }) => {
         <Notification stroke={page === "Leave" ? COLORS.textPrimary : "#fff"} />
       ),
     },
-    // {
-    //   id: 5,
-    //   title: "Notifications",
-    //   icon: (
-    //     <LeaveSmall
-    //       stroke={page === "Notifications" ? COLORS.textPrimary : "#fff"}
-    //     />
-    //   ),
-    // },
+    {
+      id: 5,
+      title: "Notifications",
+      icon: (
+        <LeaveSmall
+          stroke={page === "Notifications" ? COLORS.textPrimary : "#fff"}
+        />
+      ),
+    },
   ];
   return (
     <View style={styles.container}>
@@ -67,8 +67,9 @@ const Navbar = ({ navigation, page }) => {
           <TouchableOpacity
             style={styles.iconContainer(page, item.title)}
             onPress={() => {
-              navigation.navigate(item.title);
+              item.title != "Notifications" && navigation.navigate(item.title);
             }}
+            activeOpacity={0.6}
           >
             <View>{item.icon}</View>
           </TouchableOpacity>

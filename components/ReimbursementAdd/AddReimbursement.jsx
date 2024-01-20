@@ -19,6 +19,10 @@ import {
   TextArea,
   Text,
   IconButton,
+  Input,
+  Modal,
+  VStack,
+  Center,
 } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
 import SelectDropdown from "react-native-select-dropdown";
@@ -29,6 +33,7 @@ import * as ImagePicker from "expo-image-picker";
 const AddReimbursement = ({ navigation }) => {
   const today = moment();
   const [showModal, setShowModal] = useState(false);
+  const [showImgModal, setShowImgModal] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState(today);
   const [choosedDate, setChoosedDate] = useState(today);
@@ -39,7 +44,12 @@ const AddReimbursement = ({ navigation }) => {
 
   var leaveDate = moment(selectedDate).format("YYYY-MM-DD dddd");
 
-  const reimbursementTypes = ["Team Lunch", "Cab Fair", "Client Meet"];
+  const reimbursementTypes = [
+    "Team Lunch",
+    "Cab Fair",
+    "Client Meet",
+    "Others",
+  ];
   const Supervisors = [
     "Charlotte Cloe",
     "James Oliver",
@@ -53,6 +63,7 @@ const AddReimbursement = ({ navigation }) => {
     reimbursementType: reimbursementTypes[0],
     applyTo: Supervisors[0],
     recommendedBy: Supervisors[0],
+    amount: "",
     description: "",
     status: "Pending",
   });
@@ -68,7 +79,11 @@ const AddReimbursement = ({ navigation }) => {
     navigation.navigate("Reimbursement");
   };
   const validate = () => {
-    if (formData.description == "") {
+    console.log(formData);
+    if (formData.amount == "") {
+      setErrors({ ...errors, amount: "Amount is required" });
+      return false;
+    } else if (formData.description == "") {
       setErrors({ ...errors, description: "Description is required" });
       return false;
     } else if (!image) {
@@ -78,11 +93,24 @@ const AddReimbursement = ({ navigation }) => {
     return true;
   };
 
+  const clickImage = async () => {
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this appp to access your camera!");
+      return;
+    }
+    const result = await ImagePicker.launchCameraAsync();
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
+      allowsEditing: false,
       aspect: [4, 3],
       quality: 1,
     });
@@ -205,6 +233,28 @@ const AddReimbursement = ({ navigation }) => {
             </Text> */}
             </HStack>
             <View style={{ marginTop: 4 }}>
+              <FormControl isRequired isInvalid={"amount" in errors}>
+                <FormControl.Label style={{ fontFamily: FONT.bold }}>
+                  <Text fontFamily={FONT.medium}>Amount:</Text>
+                </FormControl.Label>
+                <Input
+                  variant="outline"
+                  placeholder="Amount"
+                  keyboardType="numeric"
+                  onChangeText={(amount) =>
+                    setFormData({ ...formData, amount: amount })
+                  }
+                />
+                {"amount" in errors ? (
+                  <FormControl.ErrorMessage mb={3} mt={0}>
+                    Amount is required.
+                  </FormControl.ErrorMessage>
+                ) : (
+                  ""
+                )}
+              </FormControl>
+            </View>
+            <View>
               <FormControl isRequired isInvalid={"description" in errors}>
                 <FormControl.Label style={{ fontFamily: FONT.bold }}>
                   <Text fontFamily={FONT.medium}>Description:</Text>
@@ -236,6 +286,9 @@ const AddReimbursement = ({ navigation }) => {
               }}
             >
               <FormControl isRequired isInvalid={"image" in errors}>
+                <FormControl.Label style={{ fontFamily: FONT.bold }}>
+                  <Text fontFamily={FONT.medium}>Upload Invoice:</Text>
+                </FormControl.Label>
                 <Button
                   size="sm"
                   variant="outline"
@@ -251,7 +304,7 @@ const AddReimbursement = ({ navigation }) => {
                       color="blue.400"
                     />
                   }
-                  onPress={pickImage}
+                  onPress={() => setShowImgModal(true)}
                 >
                   Click here to upload file
                 </Button>
@@ -282,6 +335,43 @@ const AddReimbursement = ({ navigation }) => {
             SUBMIT
           </Button>
         </View>
+        <Modal isOpen={showImgModal} onClose={() => setShowImgModal(false)}>
+          <Modal.Content maxWidth="400px">
+            <Modal.Body>
+              <Center>
+                <HStack space={8}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      clickImage();
+                      setShowImgModal(false);
+                    }}
+                    activeOpacity={0.6}
+                  >
+                    <VStack alignItems={"center"}>
+                      <Icon
+                        as={<MaterialIcons name="camera-alt" />}
+                        size={16}
+                      />
+                      <Text style={styles.successModalTitle}>Take picture</Text>
+                    </VStack>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      pickImage();
+                      setShowImgModal(false);
+                    }}
+                    activeOpacity={0.6}
+                  >
+                    <VStack alignItems={"center"}>
+                      <Icon as={<MaterialIcons name="image" />} size={16} />
+                      <Text style={styles.successModalTitle}>Gallery</Text>
+                    </VStack>
+                  </TouchableOpacity>
+                </HStack>
+              </Center>
+            </Modal.Body>
+          </Modal.Content>
+        </Modal>
       </ScrollView>
     </SafeAreaView>
   );
