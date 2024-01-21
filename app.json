@@ -22,14 +22,17 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.sandipthapa.employeeHub"
+      "package": "com.sandipthapa.employeeHub",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-router",
-       [
+      [
         "expo-image-picker",
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
@@ -47,7 +50,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "8ea79da0-344f-4239-af83-6a348efd1c6d"
+        "projectId": "c545d0c1-c250-4753-9280-232e006b329d"
       }
     }
   }

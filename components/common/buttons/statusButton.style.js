@@ -21,9 +21,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   }),
   text: (status) => ({
-    color: status === "Working" ? COLORS.textGray : COLORS.white,
-    fontFamily: FONT.medium,
-    fontSize: 12,
+    color: status === "Working" ? COLORS.textPrimary : COLORS.white,
+    fontFamily: status == "Working" ? FONT.regular : FONT.medium,
+    fontSize: status == "Working" ? 14 : 12,
   }),
 });
 
