@@ -8,13 +8,37 @@ import styles from "./addAttendance.style";
 import SelectDropdown from "react-native-select-dropdown";
 import { MaterialIcons } from "@expo/vector-icons";
 import moment from "moment";
-import { useDispatch } from "react-redux";
-import { addAttendance } from "../Attendance/attendanceSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addTime, signInSlice } from "../Attendance/timeInSlice";
+// import { addAttendance } from "../Attendance/attendanceSlice";
 
 const AddAttendance = () => {
+  const { timeIn } = useSelector((state) => {
+    return {
+      timeIn: state.timeIn,
+    };
+  });
+  console.log(timeIn.timeInRecords);
   const today = moment();
   const onDateChange = (date) => {};
   const [signIn, setSignIn] = useState(true);
+  const [isSignedIn, setissignedIn] = useState(
+    timeIn.timeInRecords &&
+      timeIn.timeInRecords.length > 0 &&
+      timeIn.timeInRecords[0].in
+      ? true
+      : false
+  );
+  const [isSignedOut, setissignedOut] = useState(
+    timeIn.timeInRecords &&
+      timeIn.timeInRecords.length > 0 &&
+      timeIn.timeInRecords[0].out
+      ? true
+      : false
+  );
+  console.log(timeIn.timeInRecords);
+  console.log(isSignedIn);
+
   const [signInForToday, setSignInForToday] = useState(false);
   const [signOutForToday, setSignOutForToday] = useState(false);
   const attendanceType = ["Time In", "Time Out"];
@@ -36,8 +60,12 @@ const AddAttendance = () => {
     out: "",
   });
   const dispatch = useDispatch();
-  const handleSubmit = (isSignIn) => {
-    dispatch(addAttendance(formData));
+  const handleSubmit = (signIn) => {
+    if (signIn) {
+      !isSignedIn && dispatch(addTime(formData));
+    } else {
+      !isSignedOut && dispatch(addTime(formData));
+    }
   };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -103,7 +131,7 @@ const AddAttendance = () => {
                       setSignIn(false);
                       setFormData({
                         ...formData,
-                        in: "",
+                        in: timeIn.timeInRecords[0].in,
                         out: moment(today).format("LT"),
                       });
                     }
@@ -152,21 +180,62 @@ const AddAttendance = () => {
           <Modal.Content maxWidth="400px">
             <Modal.CloseButton />
             <Modal.Body>
-              <Center padding={1} paddingTop={10} paddingBottom={20}>
-                <Icon
-                  as={<MaterialIcons name="check-circle-outline" />}
-                  size={16}
-                  mb="8"
-                  color="#29DF3B"
-                />
-                <Text style={styles.successModalTitle}>
-                  Attendance Recorded
-                </Text>
-                <Text>
-                  {signIn ? "Time in" : "Time out"} at:{" "}
-                  {moment(today).format("LT")}
-                </Text>
-              </Center>
+              {signIn ? (
+                isSignedIn ? (
+                  <Center padding={1} paddingTop={10} paddingBottom={20}>
+                    <Icon
+                      as={<MaterialIcons name="close" />}
+                      size={16}
+                      mb="8"
+                      color="#f00"
+                    />
+                    <Text style={styles.successModalTitle}>
+                      You have already timed in for today.
+                    </Text>
+                  </Center>
+                ) : (
+                  <Center padding={1} paddingTop={10} paddingBottom={20}>
+                    <Icon
+                      as={<MaterialIcons name="check-circle-outline" />}
+                      size={16}
+                      mb="8"
+                      color="#29DF3B"
+                    />
+                    <Text style={styles.successModalTitle}>
+                      Attendance Recorded
+                    </Text>
+
+                    <Text>Time in at: {moment(today).format("LT")}</Text>
+                  </Center>
+                )
+              ) : isSignedOut ? (
+                <Center padding={1} paddingTop={10} paddingBottom={20}>
+                  <Icon
+                    as={<MaterialIcons name="close" />}
+                    size={16}
+                    mb="8"
+                    color="#f00"
+                  />
+                  <Text style={styles.successModalTitle}>
+                    You have already timed out for today.
+                  </Text>
+                </Center>
+              ) : (
+                <Center padding={1} paddingTop={10} paddingBottom={20}>
+                  <Icon
+                    as={<MaterialIcons name="check-circle-outline" />}
+                    size={16}
+                    mb="8"
+                    color="#29DF3B"
+                  />
+                  <Text style={styles.successModalTitle}>
+                    Attendance Recorded
+                  </Text>
+
+                  <Text>Time in at: {timeIn.timeInRecords[0].in}</Text>
+                  <Text>Time out at: {moment(today).format("LT")}</Text>
+                </Center>
+              )}
             </Modal.Body>
           </Modal.Content>
         </Modal>

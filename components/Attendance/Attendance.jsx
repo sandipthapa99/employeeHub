@@ -16,6 +16,11 @@ const Attendance = ({ navigation }) => {
       attendance: state.attendance,
     };
   });
+  const { timeIn } = useSelector((state) => {
+    return {
+      timeIn: state.timeIn,
+    };
+  });
   const years = ["2024", "2023"];
   const months = [
     "January",
@@ -148,7 +153,7 @@ const Attendance = ({ navigation }) => {
             mt={6}
             paddingX={4}
           >
-            <Text color={COLORS.textPrimary} fontFamily={FONT.regular} mr={6}>
+            <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
               Date
             </Text>
             <Text color={COLORS.textPrimary} fontFamily={FONT.regular}>
@@ -165,7 +170,104 @@ const Attendance = ({ navigation }) => {
             </Text>
           </HStack>
           <View style={styles.listContainer}>
-            {reversedData && reversedData.length > 0 ? (
+            {selectedYear === "2024" && selectedMonth === "January" ? (
+              timeIn.timeInRecords && timeIn.timeInRecords.length > 0 ? (
+                timeIn.timeInRecords.map((item, index) => (
+                  <Box
+                    borderBottomWidth={
+                      index === timeIn.timeInRecords.length - 1 ? 0 : "1"
+                    }
+                    borderColor={COLORS.lightWhite}
+                    py="3"
+                    key={index}
+                  >
+                    <HStack
+                      space={[2, 3]}
+                      justifyContent={
+                        item.dayType == "Working"
+                          ? "space-between"
+                          : "flex-start"
+                      }
+                      alignItems={"center"}
+                      paddingX={4}
+                    >
+                      <VStack>
+                        <Text
+                          color={COLORS.textPrimary}
+                          fontFamily={FONT.regular}
+                          fontSize={14}
+                        >
+                          {moment(item.date).format("DD/MM")}
+                        </Text>
+                        <Text
+                          color={COLORS.textPrimary}
+                          fontFamily={FONT.regular}
+                          fontSize={14}
+                        >
+                          {moment(item.date).format(" ddd")}
+                        </Text>
+                      </VStack>
+                      <Text
+                        color={COLORS.textPrimary}
+                        fontFamily={FONT.regular}
+                        ml={item.dayType == "Working" ? 0 : 6}
+                      >
+                        {!item.dayType == "" ? (
+                          <StatusButton status={item.dayType} />
+                        ) : (
+                          ""
+                        )}
+                      </Text>
+                      <Text
+                        color={COLORS.textPrimary}
+                        fontFamily={FONT.regular}
+                      >
+                        {!item.workedHour == ""
+                          ? item.workedHour
+                          : item.dayType != "Working"
+                          ? ""
+                          : item.in && item.out
+                          ? moment(item.out, "h:mm A").diff(
+                              moment(item.in, "h:mm A"),
+                              "minutes"
+                            ) + " mins"
+                          : "-"}
+                      </Text>
+                      <Text
+                        color={COLORS.textPrimary}
+                        fontFamily={FONT.regular}
+                      >
+                        {item.in !== ""
+                          ? item.in
+                          : item.dayType != "Working"
+                          ? ""
+                          : "-"}
+                      </Text>
+                      <Text
+                        color={COLORS.textPrimary}
+                        fontFamily={FONT.regular}
+                      >
+                        {!item.out == ""
+                          ? item.out
+                          : item.dayType != "Working"
+                          ? ""
+                          : "-"}
+                      </Text>
+                    </HStack>
+                  </Box>
+                ))
+              ) : (
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontFamily: FONT.medium,
+                    paddingVertical: 24,
+                  }}
+                >
+                  No Data Available for selected Date
+                </Text>
+              )
+            ) : reversedData && reversedData.length > 0 ? (
               reversedData.map((item, index) => (
                 <Box
                   borderBottomWidth={
